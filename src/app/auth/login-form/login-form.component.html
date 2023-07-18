@@ -1,0 +1,26 @@
+<section class="centered mt-5">
+    <h3>Влез</h3>
+    <form [formGroup]="form" (ngSubmit)="handleLogin(form)">
+        <div class="form-floating mb-2">
+            <input formControlName="email" type="email" class="form-control" id="floatingInput"
+                placeholder="name@example.com">
+            <label for="floatingInput">email</label>
+        </div>
+        <div *ngIf="Email?.touched && Email?.invalid" class="alert alert-danger">
+            <div *ngIf="Email?.errors?.['required']">Email е задължително поле.</div>
+            <div *ngIf="Email?.errors?.['email']">Невалиден email</div>
+        </div>
+        <div class="form-floating mb-2">
+            <input formControlName="password" type="password" class="form-control" id="floatingPassword"
+                placeholder="Password">
+            <label for="floatingPassword">Парола</label>
+        </div>
+        <div *ngIf="Password?.touched && Password?.invalid" class="alert alert-danger">
+            <div *ngIf="Password?.errors?.['required']">Парола е задължително поле.</div>
+        </div>
+        <button type="submit" [disabled]="form.invalid" class="btn btn-warning">Влез</button>
+    </form>
+</section>
+
+
+<button (click)="getuserdata()">Get user Data</button>
