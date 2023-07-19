@@ -40,6 +40,8 @@ export class RegisterFormComponent {
     getAllUsers() {
         this.authService.getAllUsers().subscribe({
             next: (response: any) => {
+                console.log("OK")
+                console.log(response.result);
                 this.users = response.result;
             },
         })
