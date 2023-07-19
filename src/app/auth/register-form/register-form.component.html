@@ -1,1 +1,56 @@
-<p>register-form works!</p>
+<section class="centered mt-5 w-25">
+    <h3>Кандидатствай</h3>
+    <form [formGroup]="form" (ngSubmit)="handleRegister(form)">
+
+        <div class="mb-2">
+            <input formControlName="names" type="text" class="form-control"
+                placeholder="Трите Ви Имена">
+        </div>
+        <div *ngIf="Names?.touched && Names?.invalid" class="alert alert-danger p-2">
+            <div *ngIf="Names?.errors?.['required']">Трите Ви имена е задължително поле.</div>
+        </div>
+
+        <div class="mb-2">
+            <select formControlName="specialty" class="form-select" aria-label="Default select example">
+                <option value="A">Административно право</option>
+                <option value="FI">Семейно наследствено право</option>
+                <option value="B" selected>И двете</option>
+            </select>
+        </div>
+
+        <div class="mb-2">
+            <input formControlName="fak_no" type="number" class="form-control"
+                placeholder="Факултетен номер">
+        </div>
+        <div *ngIf="Fak_no?.touched && Fak_no?.invalid" class="alert alert-danger p-2">
+            <div *ngIf="Fak_no?.errors?.['required']">Факултетен номер е задължително поле.</div>
+            <div *ngIf="Fak_no?.errors?.['max']">Невалиден факултетен номер</div>
+            <div *ngIf="Fak_no?.errors?.['min']">Невалиден факултетен номер</div>
+        </div>
+
+        <div class="mb-2">
+            <input formControlName="email" type="email" class="form-control"
+                placeholder="name@example.com">
+        </div>
+        <div *ngIf="Email?.touched && Email?.invalid" class="alert alert-danger p-2">
+            <div *ngIf="Email?.errors?.['required']">Email е задължително поле.</div>
+            <div *ngIf="Email?.errors?.['email']">Невалиден email</div>
+        </div>
+
+        <div class="mb-2">
+            <input formControlName="password" type="password" class="form-control"
+                placeholder="Парола">
+        </div>
+        <div *ngIf="Password?.touched && Password?.invalid" class="alert alert-danger p-2">
+            <div *ngIf="Password?.errors?.['required']">Парола е задължително поле.</div>
+        </div>
+        <button type="submit" [disabled]="form.invalid" class="btn btn-primary color-btn">Кандидатствай</button>
+    </form>
+</section>
+
+
+<h2>Всички студенти</h2>
+<button (click)="getAllUsers()" class="btn btn-secondary mb-2 mt-2">Update</button>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let user of users">{{user.fak_no}} {{user.names}} {{user.approved}}</li>
+</ul>

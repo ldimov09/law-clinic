@@ -38,4 +38,8 @@ export class LoginFormComponent {
   getuserdata(){
     console.log(this.service.user)
   }
+
+  logout() {
+    this.service.logout();
+  }
 }

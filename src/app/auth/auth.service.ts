@@ -27,8 +27,21 @@ export class AuthService {
 
   loginUser(payload: { email: string; password: string }) {
     const result = this.http.post(this.url + "auth/login.php", payload);
-    console.log(result);
     return result;
+  }
+
+  createUser(payload: { email: string; password: string, fak_no: number, specialty: string, names: string }) {
+    const result = this.http.post(this.url + "auth/register.php", payload);
+    return result;
+  }
+
+  getAllUsers() {
+    const result = this.http.get(this.url + "auth/all.php");
+    return result;
+  }
+
+  logout() {
+    localStorage.clear();
   }
 
 }
