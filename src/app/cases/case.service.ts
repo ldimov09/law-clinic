@@ -25,4 +25,10 @@ export class CaseService {
     return result;
   }
 
+  changeStatus(id: number, status: string, specialty?: string) {
+    const randomApiId = Math.random();
+    const result = this.http.post(this.url + "cases/changeStatus.php?apiId=" + randomApiId, {id, status, specialty});
+    return result;
+  }
+
 }

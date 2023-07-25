@@ -12,13 +12,25 @@ export class AdminComponent {
 	opened = 'home';
 	cases!: ICase[];
 
+	role!: string;
+	spec!: string;
 	authService: AuthService;
-
+	
 	constructor(authService: AuthService, private caseService: CaseService) {
 		this.authService = authService;
+		this.role = this.authService.user.role;
+		this.spec = this.authService.user.specialty;
 	}
 
 	ngOnInit() {
+		this.updateCases();
+	}
+
+	changeWindow(newWindow: string) {
+		this.opened = newWindow;
+	}
+
+	updateCases(){
 		this.caseService.getAllCases().subscribe({
 			next: (response: any) => {
 				if (response.success) {
@@ -33,7 +45,13 @@ export class AdminComponent {
 		})
 	}
 
-	changeWindow(newWindow: string) {
-		this.opened = newWindow;
+	rejectCase(id: number) {
+		this.caseService.changeStatus(id, 'Rejected').subscribe({
+			next: (response: any) => {
+			},
+			error: (error: any) => {
+				console.log(error);
+			}
+		})
 	}
 }

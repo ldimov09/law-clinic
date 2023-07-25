@@ -25,24 +25,108 @@
 
                 <h2> Всички Казуси</h2>
 
+                <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
+                    aria-label="refresh" (click)="updateCases()"><mat-icon>refresh</mat-icon></button>
+
                 <mat-tab-group>
-                    <mat-tab label="Неодобрени">
+                    <mat-tab label="Неодобрени" *ngIf="role == 'superadmin'">
                         <mat-list>
                             <mat-list-item *ngFor="let case of cases">
                                 <span *ngIf="case.status == 'Not Approved'">
-                                    {{case.title}} 
-                                    <button mat-icon-button color="primary" matTooltipPosition="above" matTooltip="Повече Информация"  aria-label="Info"><mat-icon>info</mat-icon></button>
-                                    <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Разпредели" aria-label="Something"><mat-icon>sync_alt</mat-icon></button>
-                                    <button mat-icon-button color="warn" matTooltipPosition="above" matTooltip="Отхвърли" aria-label="Reject"><mat-icon>block</mat-icon></button>
+                                    {{case.title}}
+                                    <div class="right">
+                                        <button mat-icon-button color="primary" matTooltipPosition="above"
+                                            matTooltip="Повече Информация"
+                                            aria-label="Info"><mat-icon>info</mat-icon></button>
+                                        <button mat-icon-button color="secondary" matTooltipPosition="above"
+                                            matTooltip="Разпредели"
+                                            aria-label="Something"><mat-icon>sync_alt</mat-icon></button>
+                                        <button mat-icon-button color="warn" matTooltipPosition="above"
+                                            matTooltip="Отхвърли"
+                                            aria-label="Reject" (click)="rejectCase(case.id)"><mat-icon>block</mat-icon></button>
+                                    </div>
                                 </span>
                             </mat-list-item>
                         </mat-list>
                     </mat-tab>
-                    <mat-tab label="Second"> Content 2 </mat-tab>
-                    <mat-tab label="Third"> Content 3 </mat-tab>
-                    <mat-tab label="Third1"> Content 3 </mat-tab>
-                    <mat-tab label="Third2"> Content 3 </mat-tab>
-                    <mat-tab label="Third3"> Content 3 </mat-tab>
+                    <mat-tab label="Разпределени Семейно и Наследствено"
+                        *ngIf="role == 'superadmin' || (role == 'admin' && spec == 'FI')">
+                        <mat-list>
+                            <mat-list-item *ngFor="let case of cases">
+                                <span *ngIf="case.status == 'Approved' && case.specialty == 'FI'">
+                                    {{case.title}}
+                                    <div class="right">
+                                        <button mat-icon-button color="primary" matTooltipPosition="above"
+                                            matTooltip="Повече Информация"
+                                            aria-label="Info"><mat-icon>info</mat-icon></button>
+                                    </div>
+                                </span>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                    <mat-tab label="Разпределени Административно"
+                        *ngIf="role == 'superadmin' || (role == 'admin' && spec == 'A')">
+                        <mat-list>
+                            <mat-list-item *ngFor="let case of cases">
+                                <span *ngIf="case.status == 'Approved' && case.specialty == 'A'">
+                                    {{case.title}}
+                                    <div class="right">
+                                        <button mat-icon-button color="primary" matTooltipPosition="above"
+                                            matTooltip="Повече Информация"
+                                            aria-label="Info"><mat-icon>info</mat-icon></button>
+                                        <button mat-icon-button color="secondary" matTooltipPosition="above"
+                                            matTooltip="Разпредели по студенти"
+                                            aria-label="people"><mat-icon>people</mat-icon></button>
+                                    </div>
+                                </span>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                    <mat-tab label="Работи се">
+                        <mat-list>
+                            <mat-list-item *ngFor="let case of cases">
+                                <span *ngIf="case.status == 'Working'">
+                                    {{case.title}}
+                                    <div class="right">
+                                        <button mat-icon-button color="primary" matTooltipPosition="above"
+                                            matTooltip="Повече Информация"
+                                            aria-label="Info"><mat-icon>info</mat-icon></button>
+                                        <button mat-icon-button color="secondary" matTooltipPosition="above"
+                                            matTooltip="Приключи работа"
+                                            aria-label="Finish"><mat-icon>check</mat-icon></button>
+                                    </div>
+                                </span>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                    <mat-tab label="Завършени">
+                        <mat-list>
+                            <mat-list-item *ngFor="let case of cases">
+                                <span *ngIf="case.status == 'Done'">
+                                    {{case.title}}
+                                    <div class="right">
+                                        <button mat-icon-button color="primary" matTooltipPosition="above"
+                                            matTooltip="Повече Информация"
+                                            aria-label="Info"><mat-icon>info</mat-icon></button>
+                                    </div>
+                                </span>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                    <mat-tab label="Отхвърлени">
+                        <mat-list>
+                            <mat-list-item *ngFor="let case of cases">
+                                <span *ngIf="case.status == 'Rejected'">
+                                    {{case.title}}
+                                    <div class="right">
+                                        <button mat-icon-button color="primary" matTooltipPosition="above"
+                                            matTooltip="Повече Информация"
+                                            aria-label="Info"><mat-icon>info</mat-icon></button>
+                                    </div>
+                                </span>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
                 </mat-tab-group>
             </div>
 
