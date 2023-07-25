@@ -1,0 +1,63 @@
+<section class="admin-component">
+    <article class="sidebar">
+        <mat-list role="list">
+            <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('home')"> <mat-icon>
+                        home</mat-icon> Начало</button> </mat-list-item>
+            <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('cases')"> <mat-icon>
+                        list_alt</mat-icon> Казуси</button> </mat-list-item>
+            <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('students')">
+                    <mat-icon>person</mat-icon> Студенти </button> </mat-list-item>
+            <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('admins')">
+                    <mat-icon>manage_accounts</mat-icon> Администратори </button> </mat-list-item>
+            <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('pending')">
+                    <mat-icon>query_builder</mat-icon> Чакащи</button> </mat-list-item>
+        </mat-list>
+    </article>
+    <article class="main-content" style="max-width: 80%">
+        <div>
+            <div *ngIf="opened == 'home'">
+                <h1>Здравейте, {{this.authService.user.names}}!</h1>
+                <p>Роля: {{this.authService.user.role == 'admin'? "Администратор" : "Суперадминистратор"}}</p>
+
+            </div>
+
+            <div *ngIf="opened == 'cases'">
+
+                <h2> Всички Казуси</h2>
+
+                <mat-tab-group>
+                    <mat-tab label="Неодобрени">
+                        <mat-list>
+                            <mat-list-item *ngFor="let case of cases">
+                                <span *ngIf="case.status == 'Not Approved'">
+                                    {{case.title}} 
+                                    <button mat-icon-button color="primary" matTooltipPosition="above" matTooltip="Повече Информация"  aria-label="Info"><mat-icon>info</mat-icon></button>
+                                    <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Разпредели" aria-label="Something"><mat-icon>sync_alt</mat-icon></button>
+                                    <button mat-icon-button color="warn" matTooltipPosition="above" matTooltip="Отхвърли" aria-label="Reject"><mat-icon>block</mat-icon></button>
+                                </span>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                    <mat-tab label="Second"> Content 2 </mat-tab>
+                    <mat-tab label="Third"> Content 3 </mat-tab>
+                    <mat-tab label="Third1"> Content 3 </mat-tab>
+                    <mat-tab label="Third2"> Content 3 </mat-tab>
+                    <mat-tab label="Third3"> Content 3 </mat-tab>
+                </mat-tab-group>
+            </div>
+
+            <div *ngIf="opened == 'students'">
+                s
+            </div>
+
+            <div *ngIf="opened == 'admins'">
+                a
+            </div>
+
+            <div *ngIf="opened == 'pending'">
+                p
+            </div>
+
+        </div>
+    </article>
+</section>

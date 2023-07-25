@@ -1,3 +1,5 @@
+<!--
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding-top: 20px; padding-bottom: 20px;">
     
     <a class="navbar-brand" href="#" style="display: flex; align-items: center; padding-left: 10px; font-size: 23px;">
@@ -50,3 +52,36 @@
     </div>
   </nav>
   
+
+-->
+
+
+<mat-toolbar color="secondary">
+  <mat-toolbar-row>
+    <img src="../../assets/e-removebg-preview.png" width="58" height="52" class="d-inline-block align-top" alt=""
+      style="margin-right: 15px;">
+    <span>Правна клиника към РУ "Ангел Кънчев"</span>
+    <span class="example-spacer"></span>
+    <a href="/" class="nav-btn" mat-button>Начало</a>
+    <a class="nav-btn" mat-button [matMenuTriggerFor]="aboutMenu">За нас</a>
+    <mat-menu #aboutMenu="matMenu">
+      <button mat-menu-item>История</button>
+      <button mat-menu-item>Структура</button>
+      <button mat-menu-item>Партньори</button>
+      <button mat-menu-item>Контакти</button>
+    </mat-menu>
+    <button class="nav-btn" mat-button [matMenuTriggerFor]="docMenu">Нормативни актове</button>
+    <mat-menu #docMenu="matMenu">
+      <button mat-menu-item>Административно право</button>
+      <button mat-menu-item>Семейно и наследствено право</button>
+    </mat-menu>
+    <a class="nav-btn" mat-button href="/submit-case" *ngIf="!this.authService.isLoggedIn()">Запитаване за консултация</a>
+    <a class="nav-btn" href='/register' mat-button *ngIf="!this.authService.isLoggedIn()">Кандидатсвай</a>
+    <a class="nav-btn" href='/login' mat-raised-button color="primary" *ngIf="!this.authService.isLoggedIn()">Вход</a>
+
+    <a href="/" class="nav-btn" mat-button *ngIf="this.authService.isLoggedIn()" (click)="this.authService.logout()">Изход</a>
+    <a class="nav-btn" href='/admin' mat-raised-button color="primary" *ngIf="this.authService.isLoggedIn() && (this.authService.user?.role == 'admin' || this.authService.user?.role == 'superadmin')">Админ панел</a>
+
+    
+  </mat-toolbar-row>
+</mat-toolbar>

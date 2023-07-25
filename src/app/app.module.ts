@@ -8,21 +8,53 @@ import { RegisterFormComponent } from './auth/register-form/register-form.compon
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './navigation/navbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SubmitCaseFormComponent } from './cases/submit-case-form/submit-case-form.component';
+import { AdminComponent } from './admin/admin/admin.component';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
     RegisterFormComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    SubmitCaseFormComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatListModule,
+    MatSidenavModule,
+    MatTabsModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,56 +1,46 @@
 <section class="centered mt-5 w-25">
-    <h3>Кандидатствай</h3>
     <form [formGroup]="form" (ngSubmit)="handleRegister(form)">
+        <h1>Кандидатствай</h1>
 
-        <div class="mb-2">
-            <input formControlName="names" type="text" class="form-control"
-                placeholder="Трите Ви Имена">
-        </div>
-        <div *ngIf="Names?.touched && Names?.invalid" class="alert alert-danger p-2">
-            <div *ngIf="Names?.errors?.['required']">Трите Ви имена е задължително поле.</div>
-        </div>
+        <mat-form-field>
+            <mat-label>Трите Ви Имена</mat-label>
+            <input matInput formControlName="names">
+        </mat-form-field>
 
-        <div class="mb-2">
-            <select formControlName="specialty" class="form-select" aria-label="Default select example">
-                <option value="A">Административно право</option>
-                <option value="FI">Семейно наследствено право</option>
-                <option value="B" selected>И двете</option>
-            </select>
-        </div>
+        <mat-form-field>
+            <mat-label>Специалност</mat-label>
+            <mat-select formControlName="specialty" required>
+                <mat-option>Изберте...</mat-option>
+                <mat-option *ngFor="let spec of specialties" [value]="spec.code">
+                    {{spec.name}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="Specialty?.errors?.['requierd']">Моля Изберете *Специалност*</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field>
+            <mat-label>Факултетен номер</mat-label>
+            <input matInput formControlName="fak_no">
+        </mat-form-field>
 
-        <div class="mb-2">
-            <input formControlName="fak_no" type="number" class="form-control"
-                placeholder="Факултетен номер">
-        </div>
-        <div *ngIf="Fak_no?.touched && Fak_no?.invalid" class="alert alert-danger p-2">
-            <div *ngIf="Fak_no?.errors?.['required']">Факултетен номер е задължително поле.</div>
-            <div *ngIf="Fak_no?.errors?.['max']">Невалиден факултетен номер</div>
-            <div *ngIf="Fak_no?.errors?.['min']">Невалиден факултетен номер</div>
-        </div>
+        <mat-form-field>
+            <mat-label>E-mail на uni-ruse.bg</mat-label>
+            <input matInput formControlName="email">
+        </mat-form-field>
 
-        <div class="mb-2">
-            <input formControlName="email" type="email" class="form-control"
-                placeholder="name@example.com">
-        </div>
-        <div *ngIf="Email?.touched && Email?.invalid" class="alert alert-danger p-2">
-            <div *ngIf="Email?.errors?.['required']">Email е задължително поле.</div>
-            <div *ngIf="Email?.errors?.['email']">Невалиден email</div>
-        </div>
+        <mat-form-field>
+            <mat-label>Парола</mat-label>
+            <input matInput formControlName="password" type="password">
+        </mat-form-field>
 
-        <div class="mb-2">
-            <input formControlName="password" type="password" class="form-control"
-                placeholder="Парола">
-        </div>
-        <div *ngIf="Password?.touched && Password?.invalid" class="alert alert-danger p-2">
-            <div *ngIf="Password?.errors?.['required']">Парола е задължително поле.</div>
-        </div>
-        <button type="submit" [disabled]="form.invalid" class="btn btn-primary color-btn">Кандидатствай</button>
+        <button mat-raised-button [disabled]="form.invalid" color="primary" type="submit">Кандидатствай</button>
+
     </form>
 </section>
 
 
 <h2>Всички студенти</h2>
-<button (click)="getAllUsers()" class="btn btn-secondary mb-2 mt-2">Update</button>
-<ul class="list-group">
-    <li class="list-group-item" *ngFor="let user of users">{{user.fak_no}} {{user.names}} {{user.approved}}</li>
-</ul>
+<button (click)="getAllUsers()" mat-raised-button  color="secondary">Update</button>
+<mat-list>
+    <mat-list-item *ngFor="let user of users">{{user.fak_no}} {{user.names}} {{user.approved}}</mat-list-item>
+</mat-list>

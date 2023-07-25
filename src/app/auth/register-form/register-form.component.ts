@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -14,10 +15,12 @@ export class RegisterFormComponent {
 
     users!: any[];
 
-    constructor(private authService: AuthService) { }
+    specialties: {name: string, code: string}[] = [{ name: "Административно" , code: "A" }, { name: "Семейно и наследствено" , code: "FI" }, { name: "И Двете", code: "B" }]
+
+    constructor(private authService: AuthService, private router: Router) { }
 
     form = new FormGroup({
-        email: new FormControl('', [Validators.required, Validators.email]),
+        email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(".+@uni-ruse.bg$")]),
         password: new FormControl('', [Validators.required]),
         names: new FormControl('', [Validators.required]),
         specialty: new FormControl('', [Validators.required]),
@@ -36,6 +39,9 @@ export class RegisterFormComponent {
     get Fak_no() {
         return this.form.get('fak_no');
     }
+    get Specialty() {
+        return this.form.get('specialty');
+    }
 
     getAllUsers() {
         this.authService.getAllUsers().subscribe({
@@ -53,6 +59,7 @@ export class RegisterFormComponent {
         this.authService.createUser({ email, password, names, fak_no, specialty}).subscribe({
             next: (response: any) => {
                 console.log(response);
+                this.router.navigate(['/'])
             },
         });
     }

@@ -13,11 +13,5 @@ export class AppComponent {
     this.service = service;
   }
 
-  ngOnInit(){
-    this.service.maketestreq().subscribe({
-      next: (value: any) => {
-        console.log(value);
-      },
-    });
-  }
+
 }

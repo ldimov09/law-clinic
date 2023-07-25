@@ -1,0 +1,28 @@
+<section class="centered mt-5 w-25">
+    <form [formGroup]="form" (ngSubmit)="handleSubmission(form)">
+        <h1>Запитване за консултация</h1>
+
+        <mat-form-field>
+            <mat-label>Трите Ви Имена</mat-label>
+            <input matInput formControlName="names">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Относно (за какво става въпрос)</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Описание (подробно описание на казуса Ви)</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button [disabled]="form.invalid" color="primary" type="submit">Кандидатствай</button>
+
+    </form>
+</section>

@@ -9,8 +9,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  //url = 'http://localhost/law_clinic/api/' //When developing and testing
-  url = 'https://www.digitalplant.eu/law_clinic/api/' //When uploading on digitalplant
+  url = 'http://localhost/law_clinic/api/' //When developing and testing
+  //url = 'https://www.digitalplant.eu/law_clinic/api/' //When uploading on digitalplant
   //url = 'https://www.pk.uni-ruse.bg/law_clinic/api/' // PROD
 
   get user() {
@@ -23,6 +23,13 @@ export class AuthService {
 
 
     return user.data;
+  }
+
+  isLoggedIn() {
+    let token = localStorage.getItem('token');
+
+    return !!token;
+
   }
 
   loginUser(payload: { email: string; password: string }) {

@@ -1,0 +1,15 @@
+.admin-component{
+    width: 100%;
+    display: flex;
+    height: calc(100vh - 64px);
+    align-items: stretch;
+}
+
+.sidebar{
+    min-width: 10%;
+    background-color: rgb(227, 227, 227);
+}
+
+.main-content > div{
+    padding: 30px;
+}
