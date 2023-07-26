@@ -12,6 +12,7 @@ import { NavbarComponent } from './navigation/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SubmitCaseFormComponent } from './cases/submit-case-form/submit-case-form.component';
 import { AdminComponent } from './admin/admin/admin.component';
+import { FilterCasesPipe } from './filter-cases.pipe';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -25,6 +26,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HomeComponent,
     NavbarComponent,
     SubmitCaseFormComponent,
-    AdminComponent
+    AdminComponent,
+    FilterCasesPipe,
+    FilterCasesPipe,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +59,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSidenavModule,
     MatTabsModule,
     MatTooltipModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
