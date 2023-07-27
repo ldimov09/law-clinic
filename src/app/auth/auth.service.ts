@@ -14,7 +14,7 @@ export class AuthService {
   //url = 'https://www.pk.uni-ruse.bg/law_clinic/api/' // PROD
 
   get user() {
-    
+
     let token = localStorage.getItem('token');
     if (!token) return null;
 
@@ -28,12 +28,12 @@ export class AuthService {
   isLoggedIn() {
     let token = localStorage.getItem('token');
 
-    return !!token;
+    return !!token; // Return true if there is a token and false otherwise with this cool !! operator
 
   }
 
   loginUser(payload: { email: string; password: string }) {
-    const randomApiId = Math.random();
+    const randomApiId = Math.random(); //Generates a random number and puts it at the end of the url to make every request unique and prevent cashing
     const result = this.http.post(this.url + "auth/login.php?apiId=" + randomApiId, payload);
     return result;
   }
@@ -52,6 +52,12 @@ export class AuthService {
 
   logout() {
     localStorage.clear();
+  }
+
+  changeStatus(id: number, status: number) {
+    const randomApiId = Math.random();
+    const result = this.http.post(this.url + "auth/approve.php?apiId=" + randomApiId, {id: id, approved: status});
+    return result;
   }
 
 }

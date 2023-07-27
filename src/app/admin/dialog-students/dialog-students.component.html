@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Изберете Студенти</h1>
+<div mat-dialog-constent>
+    <p><b>Внимание!</b> След като натиснете "Потвърждаване" не може да промените избора си докато не бъде завършен
+        казуса!</p>
+
+    <mat-selection-list #students color="primary" [(ngModel)]="selectedStudents">
+        <mat-list-option *ngFor="let user of data.users" [value]="user">
+            {{user.fak_no}} {{user.names}}
+        </mat-list-option>
+    </mat-selection-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-stroked-button color="secondary" (click)="onNoClick()" cdkFocusInitial>Отказ</button>
+    <button mat-raised-button color="primary" [disabled]="students.selectedOptions.selected.length == 0"
+        [mat-dialog-close]="selectedStudents">Потвърждаване</button>
+</div>

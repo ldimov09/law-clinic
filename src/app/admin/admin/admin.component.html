@@ -39,10 +39,10 @@
                                         aria-label="Info"><mat-icon>info</mat-icon></button>
                                     <button mat-icon-button color="secondary" matTooltipPosition="above"
                                         matTooltip="Разпредели"
-                                        aria-label="Something"><mat-icon>sync_alt</mat-icon></button>
+                                        aria-label="Something" (click)="openSpecilatyDialog(case.id)"><mat-icon>sync_alt</mat-icon></button>
                                     <button mat-icon-button color="warn" matTooltipPosition="above"
                                         matTooltip="Отхвърли" aria-label="Reject"
-                                        (click)="rejectCase(case.id)"><mat-icon>block</mat-icon></button>
+                                        (click)="changeCaseStatus(case.id, 'Rejected')"><mat-icon>block</mat-icon></button>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -50,12 +50,15 @@
                     <mat-tab label="Разпределени Семейно и Наследствено"
                         *ngIf="role == 'superadmin' || (role == 'admin' && spec == 'FI')">
                         <mat-list>
-                            <mat-list-item *ngFor="let case of cases | filterCases: 'Approved' 'FI'">
+                            <mat-list-item *ngFor="let case of cases | filterCases: 'Approved': 'FI'">
                                 {{case.title}}
                                 <div class="right">
                                     <button mat-icon-button color="primary" matTooltipPosition="above"
                                         matTooltip="Повече Информация"
                                         aria-label="Info"><mat-icon>info</mat-icon></button>
+                                    <button mat-icon-button color="secondary" matTooltipPosition="above"
+                                        matTooltip="Разпредели по студенти" aria-label="people"
+                                        (click)="openStudentDialog(case)"><mat-icon>people</mat-icon></button>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -63,15 +66,15 @@
                     <mat-tab label="Разпределени Административно"
                         *ngIf="role == 'superadmin' || (role == 'admin' && spec == 'A')">
                         <mat-list>
-                            <mat-list-item *ngFor="let case of cases | filterCases: 'Approved' 'A'">
+                            <mat-list-item *ngFor="let case of cases | filterCases: 'Approved': 'A'">
                                 {{case.title}}
                                 <div class="right">
                                     <button mat-icon-button color="primary" matTooltipPosition="above"
                                         matTooltip="Повече Информация"
                                         aria-label="Info"><mat-icon>info</mat-icon></button>
                                     <button mat-icon-button color="secondary" matTooltipPosition="above"
-                                        matTooltip="Разпредели по студенти"
-                                        aria-label="people"><mat-icon>people</mat-icon></button>
+                                        matTooltip="Разпредели по студенти" aria-label="people"
+                                        (click)="openStudentDialog(case)"><mat-icon>people</mat-icon></button>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -86,7 +89,7 @@
                                         aria-label="Info"><mat-icon>info</mat-icon></button>
                                     <button mat-icon-button color="secondary" matTooltipPosition="above"
                                         matTooltip="Приключи работа"
-                                        aria-label="Finish"><mat-icon>check</mat-icon></button>
+                                        aria-label="Finish" (click)="changeCaseStatus(case.id, 'Done')"><mat-icon>check</mat-icon></button>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -119,11 +122,58 @@
             </div>
 
             <div *ngIf="opened == 'students'">
-                s
+                <h2> Всички Студенти</h2>
+                <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
+                    aria-label="refresh" (click)="updateUsers()"><mat-icon>refresh</mat-icon></button>
+
+                <mat-tab-group>
+                    <mat-tab label="Чакащи">
+                        <mat-list>
+                            <mat-list-item *ngFor="let user of users | fiterUsers: 'user': '0'">
+                                {{user.fak_no}}
+                                {{user.names}}
+                                <div class="right">
+                                    <button mat-icon-button color="secondary" matTooltipPosition="above"
+                                        matTooltip="Одобри" aria-label="Finish"
+                                        (click)="changeUserStatus(user.id, 1)"><mat-icon>check</mat-icon></button>
+                                    <button mat-icon-button color="warn" matTooltipPosition="above"
+                                        matTooltip="Отхвръли" aria-label="Finish"
+                                        (click)="changeUserStatus(user.id, -1)"><mat-icon>block</mat-icon></button>
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                    <mat-tab label="Одобрени">
+                        <mat-list>
+                            <mat-list-item *ngFor="let user of users | fiterUsers: 'user': '1'">
+                                {{user.fak_no}}
+                                {{user.names}}
+                                <div class="right">
+                                    <button mat-icon-button color="warn" matTooltipPosition="above" matTooltip="Изтирий"
+                                        aria-label="Finish"><mat-icon>block</mat-icon></button>
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                    <mat-tab label="Отхвърлени">
+                        <mat-list>
+                            <mat-list-item *ngFor="let user of users | fiterUsers: 'user': '-1'">
+                                {{user.fak_no}}
+                                {{user.names}}
+                                <div class="right">
+                                    <button mat-icon-button color="primary" matTooltipPosition="above"
+                                        matTooltip="Върни обратно в 'Чакащи'" aria-label="Finish"
+                                        (click)="changeUserStatus(user.id, 0)"><mat-icon>arrow_back</mat-icon></button>
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                </mat-tab-group>
             </div>
 
             <div *ngIf="opened == 'admins'">
-                a
+                <button mat-raised-button>Students</button>
+                <button mat-raised-button>Specialty</button>
             </div>
 
             <div *ngIf="opened == 'pending'">

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './auth/login-form/login-form.component';
 import { RegisterFormComponent } from './auth/register-form/register-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navigation/navbar.component';
@@ -13,7 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SubmitCaseFormComponent } from './cases/submit-case-form/submit-case-form.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { FilterCasesPipe } from './filter-cases.pipe';
+import { DialogStudentsComponent } from './admin/dialog-students/dialog-students.component';
+import { DialogSpecialtyComponent } from './admin/dialog-specialty/dialog-specialty.component';
 
+//Angular Material Imports
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -26,7 +29,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDialogModule } from '@angular/material/dialog';
+import { DetailsComponent } from './cases/details/details.component';
+import { FiterUsersPipe } from './fiter-users.pipe';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 
 @NgModule({
   declarations: [
@@ -39,9 +47,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     AdminComponent,
     FilterCasesPipe,
     FilterCasesPipe,
+    DetailsComponent,
+    FiterUsersPipe,
+    DialogStudentsComponent,
+    DialogSpecialtyComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
@@ -60,8 +73,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTabsModule,
     MatTooltipModule,
     MatDialogModule,
+    MatSnackBarModule,
+    MatButtonToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

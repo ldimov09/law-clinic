@@ -25,9 +25,16 @@ export class CaseService {
     return result;
   }
 
-  changeStatus(id: number, status: string, specialty?: string) {
+  changeStatus(id: number, status: string, specialty?: string | number) {
     const randomApiId = Math.random();
     const result = this.http.post(this.url + "cases/changeStatus.php?apiId=" + randomApiId, {id, status, specialty});
+    return result;
+  }
+
+  assignUsersToCase(caseId: number, userIds: string){
+    console.log("Assigning users to case");
+    const randomApiId = Math.random();
+    const result = this.http.post(this.url + "cases/assignUsers.php?apiId=" + randomApiId, {caseId, userIds});
     return result;
   }
 

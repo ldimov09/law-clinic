@@ -3,6 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CaseService } from 'src/app/cases/case.service';
 import { ICase } from 'src/app/interfaces/case';
+import { IUser } from 'src/app/interfaces/user';
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { DialogStudentsComponent } from '../dialog-students/dialog-students.component';
+import { DialogSpecialtyComponent } from '../dialog-specialty/dialog-specialty.component';
 
 @Component({
 	selector: 'app-admin',
@@ -12,6 +16,7 @@ import { ICase } from 'src/app/interfaces/case';
 export class AdminComponent {
 	opened = 'home';
 	cases!: ICase[];
+	users!: IUser[];
 
 	test!: string;
 
@@ -19,68 +24,155 @@ export class AdminComponent {
 	spec!: string;
 	authService: AuthService;
 
-	constructor(authService: AuthService, private caseService: CaseService) {
+	constructor(authService: AuthService, private caseService: CaseService, private snackBar: MatSnackBar, public dialog: MatDialog) {
 		this.authService = authService;
 		this.role = this.authService.user.role;
 		this.spec = this.authService.user.specialty;
 	}
 
-	ngOnInit() {
-		this.updateCases();
+	//====BASE===
 
+	ngOnInit() {
+		this.updateCases(true); // Parameter true means that the function will update the cases anf the users
 	}
 
-	changeWindow(newWindow: string) {
+	changeWindow(newWindow: string) { //For the sidebar tabs to work
 		this.opened = newWindow;
 	}
 
-	updateCases() {
+	//====UPDATE CASES USERS AND STATUS ====
+
+	updateCases(cont?: boolean) {
+		//The cont (stands for continue) variable indicates whether the function continues with updating the users...
+		//...(as is needed in ngOnInit) or doesn't (as is needed it the update button in the admin panel).
 		this.caseService.getAllCases().subscribe({
 			next: (response: any) => {
 				if (response.success) {
 					this.cases = response.result;
+					console.log(this.cases); //TODO: Remove this
+					if (cont) {
+						this.updateUsers(); //If const is true, update the users list
+					}
 				} else {
 					console.log(response);
 				}
 			},
 			error: (error) => {
-				console.log(error);
+				console.log(error);  //TODO: Handle errors properly
 			}
 		})
 	}
 
-	rejectCase(id: number) {
-		this.caseService.changeStatus(id, 'Rejected').subscribe({
+	updateUsers() {
+		this.authService.getAllUsers().subscribe({
 			next: (response: any) => {
+				if (response.success) {
+					this.users = response.result;
+				} else {
+				}
+			},
+			error: (error) => {
+				console.log(error); //TODO: Handle errors properly
+			}
+		})
+	}
+
+	changeCaseStatus(id: number, status: string, specialty?: string | number) {
+		let oldStatus: string, oldSpec: string | number, index: number; //Saving the old status and specialty in case something goes wrong with the request
+		this.cases = this.cases.map((c, i) => { //Making an optimistic update: Updating the approved field for the user to see instantly before even sending the request.
+			if (c.id == id) {
+				oldStatus = c.status;
+				oldSpec = c.specialty;
+				c.status = status;
+				c.specialty = specialty!;
+				index = i
+			}
+			return c;
+		})
+		this.caseService.changeStatus(id, status, specialty).subscribe({
+			next: (response: any) => {
+				if (!response.success) {
+					this.cases[index].status = oldStatus; //If something goes wrong restore the previous status and specialty.
+					this.cases[index].specialty = oldSpec;
+				}else{
+					this.openSnackBar('Успешно променен статус!', 'OK')
+				}
 			},
 			error: (error: any) => {
-				console.log(error);
+				this.cases[index].status = oldStatus; //If something goes wrong restore the previous status and specialty.
+				this.cases[index].specialty = oldSpec;
+				console.log(error);  //TODO: Handle errors properly
 			}
 		})
 	}
+
+	changeUserStatus(id: number, status: number) {
+		let oldStatus: number, index: number;
+		this.users = this.users.map((user, i) => { //Making an optimistic update: Updating the approved field for the user to see instantly before even sending the request.
+			if (user.id == id) {
+				oldStatus = user.approved;
+				user.approved = status;
+				index = i
+			}
+			return user;
+		})
+		this.authService.changeStatus(id, status).subscribe({
+			next: (response: any) => {
+				if (!response.success) {
+					this.users[index].approved = oldStatus; //If something goes wrong restore the previous status.
+				}
+			},
+			error: (error: any) => {
+				this.users[index].approved = oldStatus; //If something goes wrong restore the previous status.
+				console.log(error);  //TODO: Handle errors properly
+			}
+		})
+	}
+
+	//====DIALOGS====
+
+	openSpecilatyDialog(id: number): void {
+		const dialogRef = this.dialog.open(DialogSpecialtyComponent, {
+			data: { selected: "" },
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(id, 'Approved', result!);
+			this.changeCaseStatus(id, 'Approved', result!);
+		});
+	}
+
+	openStudentDialog(c: ICase): void { //TODO: Filter by specialty given by the tab
+		const dialogRef = this.dialog.open(DialogStudentsComponent, {
+			data: { users: this.users.filter(u => u.role == 'user' && u.approved == 1 && (u.specialty == 'B' || u.specialty == c.specialty)) },
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			this.assignUsersToCase(result, c);
+
+		});
+	}
+
+	assignUsersToCase(users: IUser[], c: ICase): void {
+		const ids = users.map(user => user.id); //Get the Id-s of the users
+		const idsting =  ids.join(', '); //Join the ids together adn send them to the server
+		this.caseService.assignUsersToCase(c.id, idsting).subscribe({
+			next: (response: any) => {
+				if(response.success){
+					console.log(response.result); //TODO: Remove
+					this.changeCaseStatus(c.id, 'Working');
+				}
+			},
+			error: (response) => {
+				console.log(response); //TODO: Handle errors properly
+			}
+		})
+	}
+
+	//====SNACK BAR====
+
+
+	openSnackBar(message: string, action: string) {
+		this.snackBar.open(message, action);
+	}
 }
-
-
-/* TODO: Remove
-
-					const temp: any = { Na: [], A: [], FI: [], W: [], D: [], R: [] }; //Creating a temporary variable for thr diff. statuses of the cases.
-					for (let c of response.result) {
-						if (c.status == "Not Approved") {
-							temp['Na'].push(c);
-						} else if (c.status == "Approved") {
-							if (c.specialty == 'A') {
-								temp['A'].push(c);
-							} else {
-								temp['FI'].push(c);
-							}
-						} else if (c.status == 'Working') {
-							temp['W'].push(c);
-						} else if (c.status == 'Done') {
-							temp['D'].push(c);
-						} else if (c.status == 'Rejected') {
-							temp['R'].push(c);
-						}
-						return temp; //Return the temporary variable
-					}
-
-*/
