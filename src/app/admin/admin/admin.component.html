@@ -1,5 +1,5 @@
 <section class="admin-component">
-    <article class="sidebar">
+    <article class="sidebar"> <!-- Side bar -->
         <mat-list role="list">
             <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('home')"> <mat-icon>
                         home</mat-icon> Начало</button> </mat-list-item>
@@ -13,25 +13,31 @@
                     <mat-icon>query_builder</mat-icon> Чакащи</button> </mat-list-item>
         </mat-list>
     </article>
+    <!-- Content Holder -->
     <article class="main-content" style="max-width: 90%">
         <div>
+            <!-- When opened side bar "Home"-->
             <div *ngIf="opened == 'home'">
                 <h1>Здравейте, {{this.authService.user.names}}!</h1>
                 <p>Роля: {{this.authService.user.role == 'admin'? "Администратор" : "Суперадминистратор"}}</p>
 
             </div>
 
+            <!-- When opened side bar "Cases"-->
+
             <div *ngIf="opened == 'cases'">
 
                 <h2> Всички Казуси</h2>
 
                 <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
-                    aria-label="refresh" (click)="updateCases()"><mat-icon>refresh</mat-icon></button>
+                    aria-label="refresh" (click)="updateCases(false)"><mat-icon>refresh</mat-icon></button>
+                <!-- updateCases(false) - Updates only the cases without the users (check the .ts file for more info)-->
 
+                <!-- Tabs for the different statuses-->
                 <mat-tab-group>
                     <mat-tab label="Неодобрени" *ngIf="role == 'superadmin'">
                         <mat-list>
-                            <mat-list-item *ngFor="let case of cases | filterCases: 'Not Approved'">
+                            <mat-list-item *ngFor="let case of cases | filterCases: 'Not Approved'"> <!-- Pipe: <status>: <specialty?>  -->
                                 {{case.title}}
                                 <div class="right">
                                     <button mat-icon-button color="primary" matTooltipPosition="above"
@@ -43,6 +49,8 @@
                                     <button mat-icon-button color="warn" matTooltipPosition="above"
                                         matTooltip="Отхвърли" aria-label="Reject"
                                         (click)="changeCaseStatus(case.id, 'Rejected')"><mat-icon>block</mat-icon></button>
+                                        <!-- Specialty Dialog - Dialog to choose A or FI specilaty -->
+                                        <!-- Change Status - Sends request to change the status of the case -->
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -59,6 +67,7 @@
                                     <button mat-icon-button color="secondary" matTooltipPosition="above"
                                         matTooltip="Разпредели по студенти" aria-label="people"
                                         (click)="openStudentDialog(case)"><mat-icon>people</mat-icon></button>
+                                    <!-- Student Dialog - Dialog to choose students to work on the case -->
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -126,6 +135,7 @@
                 <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
                     aria-label="refresh" (click)="updateUsers()"><mat-icon>refresh</mat-icon></button>
 
+                <!-- Agoain tabs for the different statuses-->
                 <mat-tab-group>
                     <mat-tab label="Чакащи">
                         <mat-list>
@@ -172,12 +182,13 @@
             </div>
 
             <div *ngIf="opened == 'admins'">
+                <!-- TODO: FIX-->
                 <button mat-raised-button>Students</button>
                 <button mat-raised-button>Specialty</button>
             </div>
 
             <div *ngIf="opened == 'pending'">
-                p
+                <!-- TODO: make content-->
             </div>
 
         </div>

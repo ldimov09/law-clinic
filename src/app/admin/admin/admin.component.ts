@@ -133,11 +133,10 @@ export class AdminComponent {
 
 	openSpecilatyDialog(id: number): void {
 		const dialogRef = this.dialog.open(DialogSpecialtyComponent, {
-			data: { selected: "" },
+			data: { selected: "" }, // Selected is <empty string> for the dialog to fill in the selected option
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-			console.log(id, 'Approved', result!);
 			this.changeCaseStatus(id, 'Approved', result!);
 		});
 	}

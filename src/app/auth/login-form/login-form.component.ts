@@ -13,6 +13,8 @@ import { ErrorService } from '../error.service';
 export class LoginFormComponent {
 	constructor(private service: AuthService, private router: Router, private errorService: ErrorService, private snackBar: MatSnackBar) { }
 
+	//====FORM====
+
 	form = new FormGroup({
 		email: new FormControl('', [Validators.required, Validators.email]),
 		password: new FormControl('', [Validators.required]),
@@ -25,27 +27,24 @@ export class LoginFormComponent {
 		return this.form.get('password');
 	}
 
+	//====HANDLE====
+
 	handleLogin(form: FormGroup) {
-		this.service.loginUser(form.value).subscribe({
+		this.service.loginUser(form.value).subscribe({ //Login user with the form data
 			next: (response: any) => {
 				if (!response.success) {
-					this.openSnackBar(this.errorService.translateError(response.error), 'OK');
+					this.openSnackBar(this.errorService.translateError(response.error), 'OK'); 
+					//If error call the error service eith the error code (check error service for more info about error codes)
 				} else {
 					const token = response.result;
 					localStorage.setItem('token', token);
-					this.router.navigate(['/']);
+					this.router.navigate(['/']); //If everything is successful navigate to '/'
 				}
 			},
 		});
 	}
 
-	getuserdata() {
-		console.log(this.service.user)
-	}
-
-	logout() {
-		this.service.logout();
-	}
+	//====SNACK BAR====
 
 	openSnackBar(message: string, action: string) {
 		this.snackBar.open(message, action);

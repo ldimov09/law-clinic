@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DelmeService } from './delme.service';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +7,4 @@ import { DelmeService } from './delme.service';
 })
 export class AppComponent {
   title = 'law-clinic';
-
-  constructor(private service: DelmeService) { 
-    this.service = service;
-  }
-
-
 }

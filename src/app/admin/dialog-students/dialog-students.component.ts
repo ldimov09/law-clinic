@@ -20,7 +20,7 @@ export class DialogStudentsComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(): void { //Close the dialog
+    this.dialogRef.close(); 
   }
 }

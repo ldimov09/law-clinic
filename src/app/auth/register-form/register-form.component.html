@@ -10,14 +10,14 @@
         <mat-form-field>
             <mat-label>Специалност</mat-label>
             <mat-select formControlName="specialty" required>
-                <mat-option>Изберте...</mat-option>
+                <mat-option>Изберте...</mat-option> <!-- No value option -->
                 <mat-option *ngFor="let spec of specialties" [value]="spec.code">
-                    {{spec.name}}
+                    {{spec.name}} <!-- Every specialty. Spec code: A, FI or both(B) -->
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="Specialty?.errors?.['requierd']">Моля Изберете *Специалност*</mat-error>
         </mat-form-field>
-        
+
         <mat-form-field>
             <mat-label>Факултетен номер</mat-label>
             <input matInput formControlName="fak_no">
@@ -34,7 +34,7 @@
         </mat-form-field>
 
         <button mat-raised-button [disabled]="form.invalid" color="primary" type="submit">Кандидатствай</button>
+        <!-- Disabled if form invalid -->
 
     </form>
 </section>
-

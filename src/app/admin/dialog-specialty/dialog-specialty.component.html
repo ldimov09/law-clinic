@@ -14,4 +14,5 @@
 <div mat-dialog-actions>
     <button mat-stroked-button color="secondary" (click)="onNoClick()" cdkFocusInitial>Отказ</button>
     <button mat-raised-button color="primary" [disabled]="data.selected == ''" [mat-dialog-close]="data.selected">Потвърждаване</button>
+    <!-- ^^^ Make the button diabled if data.selected is empty (data is the input object that is used to store the output)-->
 </div>

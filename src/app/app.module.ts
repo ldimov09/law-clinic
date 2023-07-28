@@ -60,6 +60,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     HttpClientModule,
     RouterModule,
     BrowserAnimationsModule,
+
+    //Angular Material Modules
     MatButtonModule,
     MatSlideToggleModule,
     MatToolbarModule,

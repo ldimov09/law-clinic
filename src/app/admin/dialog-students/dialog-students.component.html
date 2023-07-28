@@ -13,4 +13,5 @@
     <button mat-stroked-button color="secondary" (click)="onNoClick()" cdkFocusInitial>Отказ</button>
     <button mat-raised-button color="primary" [disabled]="students.selectedOptions.selected.length == 0"
         [mat-dialog-close]="selectedStudents">Потвърждаване</button>
+    <!-- If no students selected disable the button -->
 </div>
