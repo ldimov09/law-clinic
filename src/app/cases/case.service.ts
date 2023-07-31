@@ -13,10 +13,9 @@ export class CaseService {
   //url = 'https://www.pk.uni-ruse.bg/law_clinic/api/' ???? // PROD
 
 
-  createCase(payload: { email: string; description: string , title: string, names: string }) {
+  createCase(payload: FormData) {
     const randomApiId = Math.random();
-    const result = this.http.post(this.url + "cases/create_case_guest.php?apiId=" + randomApiId, payload);
-    return result;
+    return this.http.post<any>(this.url + "cases/create_case_guest.php?apiId=" + randomApiId, payload);
   }
 
   getAllCases() {

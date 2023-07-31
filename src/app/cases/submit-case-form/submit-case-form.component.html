@@ -22,8 +22,23 @@
             <textarea matInput formControlName="description"></textarea>
         </mat-form-field>
 
+        <div class="form-field">
+            <p class="info">Прикачете материали към казуса</p>
+            <button mat-raised-button type="button" class="file-input-button" color="primary">
+                Изберете Файл
+                <input formControlName="file" type="file" multiple (change)="onFileSelected($event)" accept=".doc,.docx,.pdf">
+            </button>
+            <span style="margin-left: 10px;" *ngIf="selectedFileNames.length > 0">Избрани Файлове: {{ selectedFileNames.join(', ') }}</span>
+            <p class="warning"><b>Внимание!</b> Маиксималният брой файлове е 5! Моля не качвайте повече от 5 файла!</p>
+
+        </div>
+
+
+
         <button mat-raised-button [disabled]="form.invalid" color="primary" type="submit">Кандидатствай</button>
         <!-- Disabled if the from is invalid -->
 
     </form>
 </section>
+
+<!--  -->
