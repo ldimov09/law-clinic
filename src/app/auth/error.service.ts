@@ -13,6 +13,7 @@ export class ErrorService {
 		'ERROR_UNA': 'Потребителят не е одобрен',
 		'ERROR_WM': 'Грешен http метод',
 		'ERROR_UE': 'Такъв потребител съществува',
+		'ERROR_TMF': 'Качени са твърде много файлове',
 	}
 
 	constructor() { }

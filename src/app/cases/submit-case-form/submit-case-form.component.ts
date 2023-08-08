@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CaseService } from '../case.service';
+import { ErrorService } from 'src/app/auth/error.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-submit-case-form',
@@ -13,7 +15,7 @@ export class SubmitCaseFormComponent {
 	selectedFiles: File[] | null = []
 
 	selectedFileNames: string[] = [];
-	constructor(private caseService: CaseService, private router: Router) { }
+	constructor(private caseService: CaseService, private router: Router, private errorService: ErrorService, private snackBar: MatSnackBar) { }
 
 	form = new FormGroup({
 		email: new FormControl('ka@ra.te', [Validators.required, Validators.email]),
@@ -92,22 +94,29 @@ export class SubmitCaseFormComponent {
 		formData.append('email', this.form.value.email!);
 		formData.append('names', this.form.value.names!);
 		if (this.selectedFiles != null) {
-			formData.append('files', JSON.stringify(this.selectedFiles));
+			for(const file of this.selectedFiles) {
+				formData.append('file[]', file);
+			}
 		}
 
-		console.log(this.selectedFiles);
+		console.log(formData);
 
 		/*const { names, email, title, description } = form.value;*/
 
 		this.caseService.createCase(formData).subscribe({
 			next: (response: any) => {
-				console.log(response);
-				this.router.navigate(['/']);
+				if(response.success) {
+					this.router.navigate(['/']);
+				}else{
+                    this.openSnackBar(this.errorService.translateError(response.error), 'OK')
+				}
 			},
 		});
 	}
 
 	onFileSelected(event: Event): void {
+		this.selectedFileNames = []; // Reset the selectedFileNames on every selection
+		this.selectedFiles = []; // Reset the selectedFiles on every selection
 		const input = event.target as HTMLInputElement;
 		const files = input?.files!;
 		if (files!.length > 0) {
@@ -120,5 +129,9 @@ export class SubmitCaseFormComponent {
 			this.selectedFileNames = []; // Reset the selectedFileNames if no file is selected
 		}
 		// Do something with the selected file
+	}
+
+	openSnackBar(message: string, action: string) {
+		this.snackBar.open(message, action);
 	}
 }
