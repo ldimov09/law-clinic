@@ -1,1 +1,11 @@
 <p>details works!</p>
+<ng-container *ngIf="this.case">
+    <h1> {{this.case!.title!}} </h1>
+    
+    <mat-list>
+        <mat-list-item *ngFor="let filename of this.case!?.filenames!"> 
+            <i class="material-icons">file_present</i>
+            <a download href="http://localhost/law_clinic/upload/{{filename}}">{{filename}}</a>
+        </mat-list-item>
+    </mat-list>
+</ng-container>

@@ -6,6 +6,7 @@ import { RegisterFormComponent } from './auth/register-form/register-form.compon
 import { LoginFormComponent } from './auth/login-form/login-form.component';
 import { SubmitCaseFormComponent } from './cases/submit-case-form/submit-case-form.component';
 import { AdminComponent } from './admin/admin/admin.component';
+import { DetailsComponent } from './cases/details/details.component';
 
 const routes: Routes = [
 	{
@@ -27,6 +28,10 @@ const routes: Routes = [
 	{
 		path: 'admin',
 		component: AdminComponent,
+	},
+	{
+		path: 'details/:id',
+		component: DetailsComponent,
 	},
 ];
 

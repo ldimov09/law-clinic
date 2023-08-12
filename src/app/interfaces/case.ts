@@ -5,4 +5,6 @@ export interface ICase {
     description: string;
     specialty: number | string;
     status: string;
+    file_count: number;
+    filenames: string[];
 }

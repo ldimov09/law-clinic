@@ -31,9 +31,14 @@ export class CaseService {
   }
 
   assignUsersToCase(caseId: number, userIds: string){
-    console.log("Assigning users to case");
     const randomApiId = Math.random();
     const result = this.http.post(this.url + "cases/assignUsers.php?apiId=" + randomApiId, {caseId, userIds});
+    return result;
+  }
+
+  getOneCase(id: string){
+    const randomApiId = Math.random();
+    const result = this.http.get<any>(this.url + 'cases/getOne.php?id=' + id + '&apiId=' + randomApiId);
     return result;
   }
 
