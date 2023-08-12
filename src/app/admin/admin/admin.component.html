@@ -40,9 +40,9 @@
                             <mat-list-item *ngFor="let case of cases | filterCases: 'Not Approved'"> <!-- Pipe: <status>: <specialty?>  -->
                                 {{case.title}}
                                 <div class="right">
-                                    <button mat-icon-button color="primary" matTooltipPosition="above"
+                                    <a mat-icon-button color="primary" matTooltipPosition="above"
                                         matTooltip="Повече Информация"
-                                        aria-label="Info"><mat-icon>info</mat-icon></button>
+                                        aria-label="Info" href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
                                     <button mat-icon-button color="secondary" matTooltipPosition="above"
                                         matTooltip="Разпредели"
                                         aria-label="Something" (click)="openSpecilatyDialog(case.id)"><mat-icon>sync_alt</mat-icon></button>
@@ -61,9 +61,9 @@
                             <mat-list-item *ngFor="let case of cases | filterCases: 'Approved': 'FI'">
                                 {{case.title}}
                                 <div class="right">
-                                    <button mat-icon-button color="primary" matTooltipPosition="above"
+                                    <a mat-icon-button color="primary" matTooltipPosition="above"
                                         matTooltip="Повече Информация"
-                                        aria-label="Info"><mat-icon>info</mat-icon></button>
+                                        aria-label="Info" href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
                                     <button mat-icon-button color="secondary" matTooltipPosition="above"
                                         matTooltip="Разпредели по студенти" aria-label="people"
                                         (click)="openStudentDialog(case)"><mat-icon>people</mat-icon></button>
@@ -78,9 +78,9 @@
                             <mat-list-item *ngFor="let case of cases | filterCases: 'Approved': 'A'">
                                 {{case.title}}
                                 <div class="right">
-                                    <button mat-icon-button color="primary" matTooltipPosition="above"
+                                    <a mat-icon-button color="primary" matTooltipPosition="above"
                                         matTooltip="Повече Информация"
-                                        aria-label="Info"><mat-icon>info</mat-icon></button>
+                                        aria-label="Info" href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
                                     <button mat-icon-button color="secondary" matTooltipPosition="above"
                                         matTooltip="Разпредели по студенти" aria-label="people"
                                         (click)="openStudentDialog(case)"><mat-icon>people</mat-icon></button>
@@ -93,9 +93,9 @@
                             <mat-list-item *ngFor="let case of cases | filterCases: 'Working'">
                                 {{case.title}}
                                 <div class="right">
-                                    <button mat-icon-button color="primary" matTooltipPosition="above"
+                                    <a mat-icon-button color="primary" matTooltipPosition="above"
                                         matTooltip="Повече Информация"
-                                        aria-label="Info"><mat-icon>info</mat-icon></button>
+                                        aria-label="Info" href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
                                     <button mat-icon-button color="secondary" matTooltipPosition="above"
                                         matTooltip="Приключи работа"
                                         aria-label="Finish" (click)="changeCaseStatus(case.id, 'Done')"><mat-icon>check</mat-icon></button>
@@ -108,9 +108,9 @@
                             <mat-list-item *ngFor="let case of cases | filterCases: 'Done'">
                                 {{case.title}}
                                 <div class="right">
-                                    <button mat-icon-button color="primary" matTooltipPosition="above"
+                                    <a mat-icon-button color="primary" matTooltipPosition="above"
                                         matTooltip="Повече Информация"
-                                        aria-label="Info"><mat-icon>info</mat-icon></button>
+                                        aria-label="Info" href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -120,9 +120,9 @@
                             <mat-list-item *ngFor="let case of cases | filterCases: 'Rejected'">
                                 {{case.title}}
                                 <div class="right">
-                                    <button mat-icon-button color="primary" matTooltipPosition="above"
+                                    <a mat-icon-button color="primary" matTooltipPosition="above"
                                         matTooltip="Повече Информация"
-                                        aria-label="Info"><mat-icon>info</mat-icon></button>
+                                        aria-label="Info" href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -135,7 +135,7 @@
                 <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
                     aria-label="refresh" (click)="updateUsers()"><mat-icon>refresh</mat-icon></button>
 
-                <!-- Agoain tabs for the different statuses-->
+                <!-- Tabs for the different statuses-->
                 <mat-tab-group>
                     <mat-tab label="Чакащи">
                         <mat-list>

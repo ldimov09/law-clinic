@@ -1,4 +1,27 @@
-<p>details works!</p>
+<!--
+    TODO FIRST: Get yourself familiar with the project.
+    TODO: Add the action buttons from the admin panel to the details page only when comming from the admin panel! 
+        (e.g. the admin opens case titled "Къща на село" and in the details page he kust see the reject and distribute buttons)
+        These button also should open the same dialog windows as the ones in the admin panel but when closing the panel with 
+        "Потвърди" button the admin must be rediredted back to the admin page with "Казуси" tab opened
+    TODO: Make the file list more beautiful.
+    TODO: Add description, names of the guest (the citizen) and email of the guest (the citizen) which should be clickable and 
+        should be type email.
+    TODO: Make a return button:
+        - When a student (user) opens the details page of some case they must have a button "обратно към 'Мойте казуси'" 
+            which redirects back to the (for now non-existent so just make href='#' or something) "Мойте казуси" page 
+            for the students
+        - When an admin (admin) opens the details page of some case they must have a button "Обратно към 'Админ панел'"
+            which redirects back to the admin panel with "Казуси" tab opened. 
+    TODO: Also when a user opens the project for the first time there is a white screen with only the navbar showing and only 
+        when you refresh the hompage content shows. I think the problem is with the routing but see if you can fix it.      
+    TODO: If you finifh all this start with the "Нормативни актове" page. Of course the file list should look the same as 
+        the one here in the details page which I told you to make more beautiful. 
+
+    If you have some questions call me. I probably won't respond right away but I will call you back later (probably).
+
+    Good Luck! :)
+-->
 <ng-container *ngIf="this.case">
     <h1> {{this.case!.title!}} </h1>
     
