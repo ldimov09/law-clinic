@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ErrorService {
 
-	//In oreder to avoid requesting and responding with data outside the ASCII table error codes are created and then translated...
+	//In order to avoid requesting and responding with data outside the ASCII table error codes are created and then translated...
 	//..on the frontend. 
 
 	errors: { [key: string]: string } = {
@@ -14,6 +14,7 @@ export class ErrorService {
 		'ERROR_WM': 'Грешен http метод',
 		'ERROR_UE': 'Такъв потребител съществува',
 		'ERROR_TMF': 'Качени са твърде много файлове',
+		'ERROR_ID': 'Грешни данни',
 	}
 
 	constructor() { }

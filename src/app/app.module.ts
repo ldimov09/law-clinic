@@ -34,6 +34,7 @@ import { FiterUsersPipe } from './fiter-users.pipe';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MyCasesComponent } from './my-cases/my-cases.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     FiterUsersPipe,
     DialogStudentsComponent,
     DialogSpecialtyComponent,
+    MyCasesComponent,
   ],
   imports: [
     BrowserModule,

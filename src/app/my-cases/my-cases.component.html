@@ -1,0 +1,58 @@
+<section class="my-cases-component">
+    <article class="sidebar"> <!-- Side bar -->
+        <mat-list role="list">
+            <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('home')"> <mat-icon>
+                home</mat-icon> Начало</button> </mat-list-item>
+            <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('working')"> <mat-icon>
+                        list_alt</mat-icon> Работи се</button> </mat-list-item>
+            <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('done')"> <mat-icon>
+                        check</mat-icon> Завършени</button> </mat-list-item>
+        </mat-list>
+    </article>
+    <article class="main-content" style="max-width: 90%">
+        <div>
+            <div *ngIf="opened == 'home'">
+                <h1>Здравейте, {{this.authService.user.names}}!</h1>
+                <p>Роля: Студент</p>
+                
+            </div>
+            <div *ngIf="opened == 'working'">
+                <h2>Казуси, по които рабоитите</h2>
+                <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
+                    aria-label="refresh" (click)="getAllCasesAssignedToThisUser()"><mat-icon>refresh</mat-icon></button>
+                <mat-list class="case-list" *ngIf="(cases | filterCases: 'Working') != []">
+                    <mat-list-item *ngFor="let case of cases | filterCases: 'Working'"> <!-- Pipe: <status>: <specialty?>  -->
+                        {{case.title}}
+                        <div class="right">
+                            <a mat-icon-button color="primary" matTooltipPosition="above"
+                                matTooltip="Повече Информация"
+                                aria-label="Info" href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+                <p *ngIf="(cases | filterCases: 'Working') == []">
+                    <i>Няма казуси със статус "Работи се"</i>
+                </p>
+
+            </div>
+            <div *ngIf="opened == 'done'">
+                <h2>Завършени казуси, по които сте работили</h2>
+                <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
+                    aria-label="refresh" (click)="getAllCasesAssignedToThisUser()"><mat-icon>refresh</mat-icon></button>
+                <mat-list class="case-list" *ngIf="(cases | filterCases: 'Done').length != 0">
+                    <mat-list-item *ngFor="let case of cases | filterCases: 'Done'"> <!-- Pipe: <status>: <specialty?>  -->
+                        {{case.title}}
+                        <div class="right">
+                            <a mat-icon-button color="primary" matTooltipPosition="above"
+                                matTooltip="Повече Информация"
+                                aria-label="Info" href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
+                <p *ngIf="(cases | filterCases: 'Done').length == 0">
+                    <i>Няма казуси със статус "Завършени"</i>
+                </p>
+            </div>
+        </div>
+    </article>
+</section>

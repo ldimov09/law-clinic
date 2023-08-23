@@ -38,7 +38,13 @@ export class CaseService {
 
   getOneCase(id: string){
     const randomApiId = Math.random();
-    const result = this.http.get<any>(this.url + 'cases/getOne.php?id=' + id + '&apiId=' + randomApiId);
+    const result = this.http.get<any>(this.url + 'cases/getone.php?id=' + id + '&apiId=' + randomApiId);
+    return result;
+  }
+
+  getCasesAssignedToUser(userId: string){
+    const randomApiId = Math.random();
+    const result = this.http.get<any>(this.url + 'cases/getcasesuser.php?id=' + userId + '&apiId=' + randomApiId);
     return result;
   }
 
