@@ -35,6 +35,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MyCasesComponent } from './my-cases/my-cases.component';
+import { ChartCasesComponent } from './admin/chart-cases/chart-cases.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { MyCasesComponent } from './my-cases/my-cases.component';
     DialogStudentsComponent,
     DialogSpecialtyComponent,
     MyCasesComponent,
+    ChartCasesComponent,
   ],
   imports: [
     BrowserModule,
