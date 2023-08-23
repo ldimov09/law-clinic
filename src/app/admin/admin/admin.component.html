@@ -182,13 +182,57 @@
             </div>
 
             <div *ngIf="opened == 'admins'">
-                <!-- TODO: FIX-->
-                <button mat-raised-button>Students</button>
-                <button mat-raised-button>Specialty</button>
+                <mat-list>
+                    <mat-list-item *ngFor="let user of (users | fiterUsers: 'admin').concat(users | fiterUsers: 'superadmin')">
+                        <mat-icon matListItemIcon>person</mat-icon>
+                        {{user.names}}
+                    </mat-list-item>
+                </mat-list>
             </div>
 
             <div *ngIf="opened == 'pending'">
-                <!-- TODO: make content-->
+                <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
+                    aria-label="refresh" (click)="updateCases(true)"><mat-icon>refresh</mat-icon></button>
+                <mat-tab-group>
+                    <mat-tab label="Студенти">
+                        <mat-list>
+                            <mat-list-item *ngFor="let user of users | fiterUsers: 'user': '0'">
+                                {{user.fak_no}}
+                                {{user.names}}
+                                <div class="right">
+                                    <button mat-icon-button color="secondary" matTooltipPosition="above"
+                                        matTooltip="Одобри" aria-label="Finish"
+                                        (click)="changeUserStatus(user.id, 1)"><mat-icon>check</mat-icon></button>
+                                    <button mat-icon-button color="warn" matTooltipPosition="above"
+                                        matTooltip="Отхвръли" aria-label="Finish"
+                                        (click)="changeUserStatus(user.id, -1)"><mat-icon>block</mat-icon></button>
+                                </div>
+                                
+
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                    <mat-tab label="Казуси">
+                        <mat-list>
+                            <mat-list-item *ngFor="let case of cases | filterCases: 'Not Approved'"> <!-- Pipe: <status>: <specialty?>  -->
+                                {{case.title}}
+                                <div class="right">
+                                    <a mat-icon-button color="primary" matTooltipPosition="above"
+                                        matTooltip="Повече Информация"
+                                        aria-label="Info" href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
+                                    <button mat-icon-button color="secondary" matTooltipPosition="above"
+                                        matTooltip="Разпредели"
+                                        aria-label="Something" (click)="openSpecilatyDialog(case.id)"><mat-icon>sync_alt</mat-icon></button>
+                                    <button mat-icon-button color="warn" matTooltipPosition="above"
+                                        matTooltip="Отхвърли" aria-label="Reject"
+                                        (click)="changeCaseStatus(case.id, 'Rejected')"><mat-icon>block</mat-icon></button>
+                                        <!-- Specialty Dialog - Dialog to choose A or FI specilaty -->
+                                        <!-- Change Status - Sends request to change the status of the case -->
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-tab>
+                </mat-tab-group>
             </div>
 
         </div>

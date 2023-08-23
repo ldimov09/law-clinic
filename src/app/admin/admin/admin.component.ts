@@ -49,7 +49,6 @@ export class AdminComponent {
 			next: (response: any) => {
 				if (response.success) {
 					this.cases = response.result;
-					console.log(this.cases); //TODO: Remove this
 					if (cont) {
 						this.updateUsers(); //If const is true, update the users list
 					}
@@ -137,7 +136,9 @@ export class AdminComponent {
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-			this.changeCaseStatus(id, 'Approved', result!);
+			if(result){
+				this.changeCaseStatus(id, 'Approved', result!);
+			}
 		});
 	}
 
@@ -147,7 +148,9 @@ export class AdminComponent {
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-			this.assignUsersToCase(result, c);
+			if(result){
+				this.assignUsersToCase(result, c);
+			}
 
 		});
 	}
@@ -158,7 +161,6 @@ export class AdminComponent {
 		this.caseService.assignUsersToCase(c.id, idsting).subscribe({
 			next: (response: any) => {
 				if(response.success){
-					console.log(response.result); //TODO: Remove
 					this.changeCaseStatus(c.id, 'Working');
 				}
 			},
