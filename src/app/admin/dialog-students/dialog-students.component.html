@@ -8,6 +8,11 @@
             {{user.fak_no}} {{user.names}}
         </mat-list-option>
     </mat-selection-list>
+
+    <p *ngIf="!data.users">
+        <i>Няма студенти</i>
+    </p>
+
 </div>
 <div mat-dialog-actions>
     <button mat-stroked-button color="secondary" (click)="onNoClick()" cdkFocusInitial>Отказ</button>

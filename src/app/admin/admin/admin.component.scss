@@ -24,5 +24,35 @@ mat-tab-group{
 
 .dashboard-container{
     display: flex;
+    flex-direction: column;
     padding: 20px;
+}
+
+.front{
+    z-index: 999 !important; 
+}
+
+.length-container{
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+    font-size: 48px;
+    background-color: #aaa;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.small-text{
+    font-size: 12px;
+}
+
+.dashboard-first-row{
+    display: flex;
+    justify-content: space-around;
+}
+
+.y7tgvfuykguvhjkg{
+    margin-bottom: 10px;
 }

@@ -53,7 +53,6 @@ export class AdminComponent {
 						this.updateUsers(); //If const is true, update the users list
 					}
 				} else {
-					console.log(response);
 				}
 			},
 			error: (error) => {
@@ -67,6 +66,7 @@ export class AdminComponent {
 			next: (response: any) => {
 				if (response.success) {
 					this.users = response.result;
+					console.log(this.users) //TODO: Remove
 				} else {
 				}
 			},

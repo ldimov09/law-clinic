@@ -9,7 +9,7 @@
                     <mat-icon>person</mat-icon> Студенти </button> </mat-list-item>
             <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('admins')">
                     <mat-icon>manage_accounts</mat-icon> Администратори </button> </mat-list-item>
-            <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('pending')">
+            <mat-list-item role="listitem"> <button class="front" mat-button [matBadge]="(users | fiterUsers: 'user': '0').length + (cases | filterCases: 'Not Approved').length" (click)="changeWindow('pending')">
                     <mat-icon>query_builder</mat-icon> Чакащи</button> </mat-list-item>
         </mat-list>
     </article>
@@ -21,8 +21,21 @@
                 <h1>Здравейте, {{this.authService.user.names}}!</h1>
                 <p>Роля: {{this.authService.user.role == 'admin'? "Администратор" : "Суперадминистратор"}}</p>
 
+                <!-- Dashboard -->
                 <article class="dashboard-container">
-                    <app-chart-cases [data]='[(cases | filterCases: "Not Approved").length, (cases | filterCases: "Approved").length, (cases | filterCases: "Working").length, (cases | filterCases: "Done").length, (cases | filterCases: "Rejected").length]'></app-chart-cases>
+                    <div class="dashboard-first-row">
+                        <div class="length-container">
+                            <div class="y7tgvfuykguvhjkg"><span class="small-text">Общо Казуси</span></div>
+                            <div><span>{{cases.length}}</span></div>
+                        </div>
+                        <div class="length-container">
+                            <div class="y7tgvfuykguvhjkg"><span class="small-text">Общо Студенти</span></div>
+                            <div><span>{{users.length}}</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <app-chart-cases [data]='[(cases | filterCases: "Not Approved").length, (cases | filterCases: "Approved").length, (cases | filterCases: "Working").length, (cases | filterCases: "Done").length, (cases | filterCases: "Rejected").length]'></app-chart-cases>
+                    </div>
                 </article>
 
             </div>
@@ -138,7 +151,7 @@
             <div *ngIf="opened == 'students'">
                 <h2> Всички Студенти</h2>
                 <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
-                    aria-label="refresh" (click)="updateUsers()"><mat-icon>refresh</mat-icon></button>
+                    aria-label="refresh" (click)="updateUsers();"><mat-icon>refresh</mat-icon></button>
 
                 <!-- Tabs for the different statuses-->
                 <mat-tab-group>

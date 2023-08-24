@@ -50,7 +50,6 @@ export class SubmitCaseFormComponent {
 			}
 		}
 
-		console.log(formData);
 
 		/*const { names, email, title, description } = form.value;*/
 

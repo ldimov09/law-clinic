@@ -36,6 +36,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angu
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MyCasesComponent } from './my-cases/my-cases.component';
 import { ChartCasesComponent } from './admin/chart-cases/chart-cases.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { ChartCasesComponent } from './admin/chart-cases/chart-cases.component';
     MatDialogModule,
     MatSnackBarModule,
     MatButtonToggleModule,
+    MatBadgeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
