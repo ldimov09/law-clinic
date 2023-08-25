@@ -8,8 +8,8 @@ export class CaseService {
 
   constructor(private http: HttpClient) { }
 
-  url = 'http://localhost/law_clinic/api/' //When developing and testing
-  //url = 'https://www.digitalplant.eu/law_clinic/api/' //When uploading on digitalplant
+  //url = 'http://localhost/law_clinic/api/' //When developing and testing
+  url = 'https://www.digitalplant.eu/law_clinic/api/' //When uploading on digitalplant
   //url = 'https://www.pk.uni-ruse.bg/law_clinic/api/' ???? // PROD
 
 
