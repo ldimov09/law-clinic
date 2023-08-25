@@ -24,8 +24,9 @@ mat-tab-group{
 
 .dashboard-container{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 20px;
+    flex-wrap: wrap;
 }
 
 .front{
@@ -41,7 +42,6 @@ mat-tab-group{
     justify-content: center;
     display: flex;
     align-items: center;
-    flex-direction: column;
 }
 
 .small-text{
@@ -51,6 +51,7 @@ mat-tab-group{
 .dashboard-first-row{
     display: flex;
     justify-content: space-around;
+
 }
 
 .y7tgvfuykguvhjkg{

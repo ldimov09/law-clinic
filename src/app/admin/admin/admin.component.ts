@@ -16,13 +16,17 @@ import { DialogSpecialtyComponent } from '../dialog-specialty/dialog-specialty.c
 export class AdminComponent {
 	opened = 'home';
 	cases!: ICase[];
-	users!: IUser[];
 
 	test!: string;
 
 	role!: string;
 	spec!: string;
 	authService: AuthService;
+
+	users: IUser[] = [];
+	occupiedUsers: number= 0;
+
+	usersLength!: number;
 
 	constructor(authService: AuthService, private caseService: CaseService, private snackBar: MatSnackBar, public dialog: MatDialog) {
 		this.authService = authService;
@@ -42,6 +46,7 @@ export class AdminComponent {
 
 	//====UPDATE CASES USERS AND STATUS ====
 
+
 	updateCases(cont?: boolean) {
 		//The cont (stands for continue) variable indicates whether the function continues with updating the users...
 		//...(as is needed in ngOnInit) or doesn't (as is needed it the update button in the admin panel).
@@ -50,7 +55,8 @@ export class AdminComponent {
 				if (response.success) {
 					this.cases = response.result;
 					if (cont) {
-						this.updateUsers(); //If const is true, update the users list
+						//If const is true, update the users list
+						this.loadUsersAndOccupiedUsers();
 					}
 				} else {
 				}
@@ -61,24 +67,31 @@ export class AdminComponent {
 		})
 	}
 
+	loadUsersAndOccupiedUsers() {
+		this.authService.getAllUsers().subscribe((response: any) => {
+			this.users = response.result;
+
+			this.authService.getOccupiedUsers().subscribe((response: any) => {
+				this.occupiedUsers = response.result;
+			});
+		});
+	}
+
+	/*
 	updateUsers() {
-		this.authService.getAllUsers().subscribe({
-			next: (response: any) => {
-				if (response.success) {
-					this.users = response.result;
-					console.log(this.users) //TODO: Remove
-				} else {
-				}
-			},
-			error: (error) => {
-				console.log(error); //TODO: Handle errors properly
+		this.authService.getAllUsers().subscribe((response: any) => {
+			if (response.success) {
+				this.users = response.result;
+				this.usersLength = this.users.length;
+				this.getNumberOccupiedStudents()
+			} else {
 			}
 		})
-	}
+	}*/
 
 	changeCaseStatus(id: number, status: string, specialty?: string | number) {
 		let oldStatus: string, oldSpec: string | number, index: number; //Saving the old status and specialty in case something goes wrong with the request
-		this.cases = this.cases.map((c, i) => { //Making an optimistic update: Updating the approved field for the user to see instantly before even sending the request.
+		this.cases = this.cases!.map((c, i) => { //Making an optimistic update: Updating the approved field for the user to see instantly before even sending the request.
 			if (c.id == id) {
 				oldStatus = c.status;
 				oldSpec = c.specialty;
@@ -91,15 +104,15 @@ export class AdminComponent {
 		this.caseService.changeStatus(id, status, specialty).subscribe({
 			next: (response: any) => {
 				if (!response.success) {
-					this.cases[index].status = oldStatus; //If something goes wrong restore the previous status and specialty.
-					this.cases[index].specialty = oldSpec;
-				}else{
+					this.cases![index].status = oldStatus; //If something goes wrong restore the previous status and specialty.
+					this.cases![index].specialty = oldSpec;
+				} else {
 					this.openSnackBar('Успешно променен статус!', 'OK')
 				}
 			},
 			error: (error: any) => {
-				this.cases[index].status = oldStatus; //If something goes wrong restore the previous status and specialty.
-				this.cases[index].specialty = oldSpec;
+				this.cases![index].status = oldStatus; //If something goes wrong restore the previous status and specialty.
+				this.cases![index].specialty = oldSpec;
 				console.log(error);  //TODO: Handle errors properly
 			}
 		})
@@ -107,7 +120,7 @@ export class AdminComponent {
 
 	changeUserStatus(id: number, status: number) {
 		let oldStatus: number, index: number;
-		this.users = this.users.map((user, i) => { //Making an optimistic update: Updating the approved field for the user to see instantly before even sending the request.
+		this.users = this.users!.map((user, i) => { //Making an optimistic update: Updating the approved field for the user to see instantly before even sending the request.
 			if (user.id == id) {
 				oldStatus = user.approved;
 				user.approved = status;
@@ -118,15 +131,25 @@ export class AdminComponent {
 		this.authService.changeStatus(id, status).subscribe({
 			next: (response: any) => {
 				if (!response.success) {
-					this.users[index].approved = oldStatus; //If something goes wrong restore the previous status.
+					this.users![index].approved = oldStatus; //If something goes wrong restore the previous status.
 				}
 			},
 			error: (error: any) => {
-				this.users[index].approved = oldStatus; //If something goes wrong restore the previous status.
+				this.users![index].approved = oldStatus; //If something goes wrong restore the previous status.
 				console.log(error);  //TODO: Handle errors properly
 			}
 		})
 	}
+
+	/*
+	getNumberOccupiedStudents() {
+		this.authService.getNumberOcSt().subscribe((response: any) => {
+			this.numberOcSt = Number(response.result);
+			console.log('Trigger', this.numberOcSt);
+			this.authService.triggerDataUpdate();
+		});
+	}
+	*/
 
 	//====DIALOGS====
 
@@ -136,7 +159,7 @@ export class AdminComponent {
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-			if(result){
+			if (result) {
 				this.changeCaseStatus(id, 'Approved', result!);
 			}
 		});
@@ -144,11 +167,11 @@ export class AdminComponent {
 
 	openStudentDialog(c: ICase): void { //TODO: Filter by specialty given by the tab
 		const dialogRef = this.dialog.open(DialogStudentsComponent, {
-			data: { users: this.users.filter(u => u.role == 'user' && u.approved == 1 && (u.specialty == 'B' || u.specialty == c.specialty)) },
+			data: { users: this.users!.filter(u => u.role == 'user' && u.approved == 1 && (u.specialty == 'B' || u.specialty == c.specialty)) },
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-			if(result){
+			if (result) {
 				this.assignUsersToCase(result, c);
 			}
 
@@ -157,10 +180,10 @@ export class AdminComponent {
 
 	assignUsersToCase(users: IUser[], c: ICase): void {
 		const ids = users.map(user => user.id); //Get the Id-s of the users
-		const idsting =  ids.join(', '); //Join the ids together adn send them to the server
+		const idsting = ids.join(', '); //Join the ids together adn send them to the server
 		this.caseService.assignUsersToCase(c.id, idsting).subscribe({
 			next: (response: any) => {
-				if(response.success){
+				if (response.success) {
 					this.changeCaseStatus(c.id, 'Working');
 				}
 			},

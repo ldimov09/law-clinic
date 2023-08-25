@@ -37,6 +37,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MyCasesComponent } from './my-cases/my-cases.component';
 import { ChartCasesComponent } from './admin/chart-cases/chart-cases.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { ChartCasesSpecComponent } from './admin/chart-cases-spec/chart-cases-spec.component';
+import { ChartUsersComponent } from './admin/chart-users/chart-users.component';
 
 
 @NgModule({
@@ -56,6 +58,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     DialogSpecialtyComponent,
     MyCasesComponent,
     ChartCasesComponent,
+    ChartCasesSpecComponent,
+    ChartUsersComponent,
   ],
   imports: [
     BrowserModule,

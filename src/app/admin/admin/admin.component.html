@@ -9,7 +9,7 @@
                     <mat-icon>person</mat-icon> Студенти </button> </mat-list-item>
             <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('admins')">
                     <mat-icon>manage_accounts</mat-icon> Администратори </button> </mat-list-item>
-            <mat-list-item role="listitem"> <button class="front" mat-button [matBadge]="(users | fiterUsers: 'user': '0').length + (cases | filterCases: 'Not Approved').length" (click)="changeWindow('pending')">
+            <mat-list-item role="listitem"> <button class="front" mat-button>
                     <mat-icon>query_builder</mat-icon> Чакащи</button> </mat-list-item>
         </mat-list>
     </article>
@@ -23,7 +23,27 @@
 
                 <!-- Dashboard -->
                 <article class="dashboard-container">
-                    <div class="dashboard-first-row">
+                    
+                    <div>
+                        <app-chart-cases
+                            [data]='[(cases! | filterCases: "Not Approved").length, (cases! | filterCases: "Approved").length, (cases! | filterCases: "Working").length, (cases! | filterCases: "Done").length, (cases! | filterCases: "Rejected").length]'></app-chart-cases>
+                    </div>
+
+
+                    <div>
+                        <app-chart-cases-spec
+                            [data]='[(cases! | filterCases: "Not Approved").length, (cases! | filterCases: "": "A").length, (cases! | filterCases: "": "FI").length]'></app-chart-cases-spec>
+                    </div>
+                    
+                    <div>
+                        <app-chart-users></app-chart-users>
+                    </div>
+                </article>
+
+            </div>
+
+            <!--
+                <div class="dashboard-first-row">
                         <div class="length-container">
                             <div class="y7tgvfuykguvhjkg"><span class="small-text">Общо Казуси</span></div>
                             <div><span>{{cases.length}}</span></div>
@@ -33,12 +53,7 @@
                             <div><span>{{users.length}}</span></div>
                         </div>
                     </div>
-                    <div>
-                        <app-chart-cases [data]='[(cases | filterCases: "Not Approved").length, (cases | filterCases: "Approved").length, (cases | filterCases: "Working").length, (cases | filterCases: "Done").length, (cases | filterCases: "Rejected").length]'></app-chart-cases>
-                    </div>
-                </article>
-
-            </div>
+            -->
 
             <!-- When opened side bar "Cases"-->
 
@@ -54,7 +69,7 @@
                 <mat-tab-group>
                     <mat-tab label="Неодобрени" *ngIf="role == 'superadmin'">
                         <mat-list>
-                            <mat-list-item *ngFor="let case of cases | filterCases: 'Not Approved'">
+                            <mat-list-item *ngFor="let case of cases! | filterCases: 'Not Approved'">
                                 <!-- Pipe: <status>: <specialty?>  -->
                                 {{case.title}}
                                 <div class="right">
@@ -76,7 +91,7 @@
                     <mat-tab label="Разпределени Семейно и Наследствено"
                         *ngIf="role == 'superadmin' || (role == 'admin' && spec == 'FI')">
                         <mat-list>
-                            <mat-list-item *ngFor="let case of cases | filterCases: 'Approved': 'FI'">
+                            <mat-list-item *ngFor="let case of cases! | filterCases: 'Approved': 'FI'">
                                 {{case.title}}
                                 <div class="right">
                                     <a mat-icon-button color="primary" matTooltipPosition="above"
@@ -93,7 +108,7 @@
                     <mat-tab label="Разпределени Административно"
                         *ngIf="role == 'superadmin' || (role == 'admin' && spec == 'A')">
                         <mat-list>
-                            <mat-list-item *ngFor="let case of cases | filterCases: 'Approved': 'A'">
+                            <mat-list-item *ngFor="let case of cases! | filterCases: 'Approved': 'A'">
                                 {{case.title}}
                                 <div class="right">
                                     <a mat-icon-button color="primary" matTooltipPosition="above"
@@ -108,7 +123,7 @@
                     </mat-tab>
                     <mat-tab label="Работи се">
                         <mat-list>
-                            <mat-list-item *ngFor="let case of cases | filterCases: 'Working'">
+                            <mat-list-item *ngFor="let case of cases! | filterCases: 'Working'">
                                 {{case.title}}
                                 <div class="right">
                                     <a mat-icon-button color="primary" matTooltipPosition="above"
@@ -123,7 +138,7 @@
                     </mat-tab>
                     <mat-tab label="Завършени">
                         <mat-list>
-                            <mat-list-item *ngFor="let case of cases | filterCases: 'Done'">
+                            <mat-list-item *ngFor="let case of cases! | filterCases: 'Done'">
                                 {{case.title}}
                                 <div class="right">
                                     <a mat-icon-button color="primary" matTooltipPosition="above"
@@ -135,7 +150,7 @@
                     </mat-tab>
                     <mat-tab label="Отхвърлени">
                         <mat-list>
-                            <mat-list-item *ngFor="let case of cases | filterCases: 'Rejected'">
+                            <mat-list-item *ngFor="let case of cases! | filterCases: 'Rejected'">
                                 {{case.title}}
                                 <div class="right">
                                     <a mat-icon-button color="primary" matTooltipPosition="above"
@@ -151,13 +166,13 @@
             <div *ngIf="opened == 'students'">
                 <h2> Всички Студенти</h2>
                 <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
-                    aria-label="refresh" (click)="updateUsers();"><mat-icon>refresh</mat-icon></button>
+                    aria-label="refresh" (click)="loadUsersAndOccupiedUsers();"><mat-icon>refresh</mat-icon></button>
 
                 <!-- Tabs for the different statuses-->
                 <mat-tab-group>
                     <mat-tab label="Чакащи">
                         <mat-list>
-                            <mat-list-item *ngFor="let user of users | fiterUsers: 'user': '0'">
+                            <mat-list-item *ngFor="let user of users! | fiterUsers: 'user': '0'">
                                 {{user.fak_no}}
                                 {{user.names}}
                                 <div class="right">
@@ -173,7 +188,7 @@
                     </mat-tab>
                     <mat-tab label="Одобрени">
                         <mat-list>
-                            <mat-list-item *ngFor="let user of users | fiterUsers: 'user': '1'">
+                            <mat-list-item *ngFor="let user of users! | fiterUsers: 'user': '1'">
                                 {{user.fak_no}}
                                 {{user.names}}
                                 <div class="right">
@@ -185,7 +200,7 @@
                     </mat-tab>
                     <mat-tab label="Отхвърлени">
                         <mat-list>
-                            <mat-list-item *ngFor="let user of users | fiterUsers: 'user': '-1'">
+                            <mat-list-item *ngFor="let user of users! | fiterUsers: 'user': '-1'">
                                 {{user.fak_no}}
                                 {{user.names}}
                                 <div class="right">
@@ -202,7 +217,7 @@
             <div *ngIf="opened == 'admins'">
                 <mat-list>
                     <mat-list-item
-                        *ngFor="let user of (users | fiterUsers: 'admin').concat(users | fiterUsers: 'superadmin')">
+                        *ngFor="let user of (users! | fiterUsers: 'admin').concat(users! | fiterUsers: 'superadmin')">
                         <mat-icon matListItemIcon>person</mat-icon>
                         {{user.names}}
                     </mat-list-item>
@@ -215,7 +230,7 @@
                 <mat-tab-group>
                     <mat-tab label="Студенти">
                         <mat-list>
-                            <mat-list-item *ngFor="let user of users | fiterUsers: 'user': '0'">
+                            <mat-list-item *ngFor="let user of users! | fiterUsers: 'user': '0'">
                                 {{user.fak_no}}
                                 {{user.names}}
                                 <div class="right">
@@ -233,7 +248,7 @@
                     </mat-tab>
                     <mat-tab label="Казуси">
                         <mat-list>
-                            <mat-list-item *ngFor="let case of cases | filterCases: 'Not Approved'">
+                            <mat-list-item *ngFor="let case of cases! | filterCases: 'Not Approved'">
                                 <!-- Pipe: <status>: <specialty?>  -->
                                 {{case.title}}
                                 <div class="right">
