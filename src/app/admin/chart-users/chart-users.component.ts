@@ -109,7 +109,7 @@ export class ChartUsersComponent {
 
 	loadUsersAndOccupiedUsers() {
 		this.authService.getAllUsers().subscribe((response: any) => {
-			this.users = response.result;
+			this.users = response.result.filter((u: IUser) => u.role === "user");
 
 			this.authService.getOccupiedUsers().subscribe((response: any) => {
 				this.occupiedUsers = response.result;

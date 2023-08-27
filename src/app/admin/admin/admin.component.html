@@ -9,7 +9,7 @@
                     <mat-icon>person</mat-icon> Студенти </button> </mat-list-item>
             <mat-list-item role="listitem"> <button mat-button (click)="changeWindow('admins')">
                     <mat-icon>manage_accounts</mat-icon> Администратори </button> </mat-list-item>
-            <mat-list-item role="listitem"> <button class="front" mat-button>
+            <mat-list-item role="listitem"> <button class="front" mat-button (click)="changeWindow('pending')">
                     <mat-icon>query_builder</mat-icon> Чакащи</button> </mat-list-item>
         </mat-list>
     </article>
