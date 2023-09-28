@@ -28,10 +28,39 @@ loggedUser!:IUser;
    this.loggedUser = this.authService.user
    
    
-    this.caseService.getAllCases().subscribe({
+   this.authService.getAllUsers().subscribe({
+     next: (response: any) => {
+       console.log(response);
+       
+       if (response.success) {
+         this.users = response.result;
+     
+      
+         for (const us of this.users) {
+          console.log(us.id);
+          
+           if(us.id == this.case?.guest_id){
+             this.user = us
+             console.log(this.user)
+           }
+          
+           
+         }
+   
+       }
+        
+       
+   
+       
+     },
+     error: (error: string) => {
+     },
+   });
+      this.caseService.getAllCases().subscribe({
 			next: (response: any) => {
 				if (response.success) {
 					this.cases = response.result;
+       console.log(this.case);
        
           for (const e of this.cases) {
             if(e.id == this.activatedRoute.snapshot.params?.['id']){
@@ -49,32 +78,6 @@ this.case.status='Работи се'
            
           
           }
-          this.authService.getAllUsers().subscribe({
-            next: (response: any) => {
-              console.log(response);
-              
-              if (response.success) {
-                this.users = response.result;
-            
-             
-                for (const e of this.users) {
-                  if(e.id == this.case?.guest_id){
-                    this.user = e
-                  }
-                 
-                  
-                }
-                console.log(this.user)
-      
-              }
-               
-              
-      
-              
-            },
-            error: (error: string) => {
-            },
-          });
           console.log(this.case);
           
           
