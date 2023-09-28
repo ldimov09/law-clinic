@@ -8,6 +8,8 @@ import { SubmitCaseFormComponent } from './cases/submit-case-form/submit-case-fo
 import { AdminComponent } from './admin/admin/admin.component';
 import { DetailsComponent } from './cases/details/details.component';
 import { MyCasesComponent } from './my-cases/my-cases.component';
+import { AdminLawComponent } from './acts/admin-law/admin-law.component';
+import { PartnersComponent } from './about-us/partners/partners.component';
 
 const routes: Routes = [
 	{
@@ -38,6 +40,14 @@ const routes: Routes = [
 		path: 'details/:id',
 		component: DetailsComponent,
 	},
+	{
+		path: 'admin-laws',
+		component: AdminLawComponent,
+	},
+	{
+		path:'partners',
+		component: PartnersComponent
+	}
 ];
 
 @NgModule({

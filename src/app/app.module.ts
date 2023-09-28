@@ -39,6 +39,8 @@ import { ChartCasesComponent } from './admin/chart-cases/chart-cases.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ChartCasesSpecComponent } from './admin/chart-cases-spec/chart-cases-spec.component';
 import { ChartUsersComponent } from './admin/chart-users/chart-users.component';
+import { AdminLawComponent } from './acts/admin-law/admin-law.component';
+import { PartnersComponent } from './about-us/partners/partners.component';
 
 
 @NgModule({
@@ -60,6 +62,8 @@ import { ChartUsersComponent } from './admin/chart-users/chart-users.component';
     ChartCasesComponent,
     ChartCasesSpecComponent,
     ChartUsersComponent,
+    AdminLawComponent,
+    PartnersComponent,
   ],
   imports: [
     BrowserModule,

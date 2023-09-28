@@ -69,15 +69,10 @@
 		<a class="nav-btn" mat-button [matMenuTriggerFor]="aboutMenu">За нас</a>
 		<mat-menu #aboutMenu="matMenu">
 			<button mat-menu-item>История</button>
-			<button mat-menu-item>Структура</button>
-			<button mat-menu-item>Партньори</button>
-			<button mat-menu-item>Контакти</button>
+			<button mat-menu-item>Преподаватели</button>
+			<a href="partners" mat-menu-item>Партньори</a>
 		</mat-menu>
-		<button class="nav-btn" mat-button [matMenuTriggerFor]="docMenu">Нормативни актове</button>
-		<mat-menu #docMenu="matMenu">
-			<button mat-menu-item>Административно право</button>
-			<button mat-menu-item>Семейно и наследствено право</button>
-		</mat-menu>
+    <a href="/admin-laws" class="nav-btn" mat-button>Нормативни актове</a>
 
 		<!-- Links only for guests-->
 		<a class="nav-btn" mat-button href="/submit-case" *ngIf="!this.authService.isLoggedIn()">Запитаване за

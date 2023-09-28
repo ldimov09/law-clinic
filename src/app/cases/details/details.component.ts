@@ -20,9 +20,11 @@ loggedUser!:IUser;
   user!:IUser;
   cases!:ICase[];
   case!:ICase;
+  
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private caseService: CaseService,private snackBar: MatSnackBar,public dialog: MatDialog, private authService: AuthService) {}
-
+  
   ngOnInit() {
+   
    this.loggedUser = this.authService.user
    
    
@@ -34,11 +36,48 @@ loggedUser!:IUser;
           for (const e of this.cases) {
             if(e.id == this.activatedRoute.snapshot.params?.['id']){
               this.case = e
+      if(this.case.status == 'Working'){
+this.case.status='Работи се'
+      }
+      if(this.case.status == 'Rejected'){
+        this.case.status='Отхвърлено'
+              }
+              if(this.case.status == 'Done'){
+                this.case.status='Завършено'
+                      }
             }
            
-            
+          
           }
-          console.log(this.case)
+          this.authService.getAllUsers().subscribe({
+            next: (response: any) => {
+              console.log(response);
+              
+              if (response.success) {
+                this.users = response.result;
+            
+             
+                for (const e of this.users) {
+                  if(e.id == this.case?.guest_id){
+                    this.user = e
+                  }
+                 
+                  
+                }
+                console.log(this.user)
+      
+              }
+               
+              
+      
+              
+            },
+            error: (error: string) => {
+            },
+          });
+          console.log(this.case);
+          
+          
 
         }
          
@@ -50,30 +89,6 @@ loggedUser!:IUser;
 			},
 		});
     
-    this.authService.getAllUsers().subscribe({
-			next: (response: any) => {
-				if (response.success) {
-					this.users = response.result;
-      
-       
-          for (const e of this.users) {
-            if(e.id == this.case?.guest_id){
-              this.user = e
-            }
-           
-            
-          }
-          console.log(this.user)
-
-        }
-         
-        
-
-        
-			},
-			error: (error: string) => {
-			},
-		});
     
   }
   openSpecilatyDialog(id: number): void {
