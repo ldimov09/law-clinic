@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CaseService } from '../case.service';
 import { ErrorService } from 'src/app/auth/error.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import emailjs from '@emailjs/browser';
 @Component({
 	selector: 'app-submit-case-form',
 	templateUrl: './submit-case-form.component.html',
@@ -62,6 +62,31 @@ export class SubmitCaseFormComponent {
 				}
 			},
 		});
+		
+			
+			let names = form.value.names
+console.log(names);
+
+	
+	
+		let about = form.value.title
+		let email = form.value.email
+		let description = form.value.description
+		let params = {
+			names,
+			about,
+			email,
+			description,
+
+		}
+		let serviceId = "service_7bv2bic"
+		let templateId ="template_22a7s5e"
+		
+		emailjs.send(serviceId, templateId,params,"oSM0BPuigetShF4Z3").then(res=>{
+			
+		})
+		
+		
 	}
 
 	onFileSelected(event: Event): void {

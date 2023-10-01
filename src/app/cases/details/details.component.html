@@ -47,8 +47,8 @@
         <h1> {{this.case!.title!}} </h1>
         <h3>Статус: <b>{{this.case.status}}</b></h3>
         <p>{{this.case!.description!}}</p>
-        <h4><span style="color:rgb(73, 71, 71); ; font-size: 18px;">Иманена на гражданина:</span> {{this.user.names}}</h4>
-        <h4><span style="color:rgb(73, 71, 71); font-size: 18px;">E-mail на гражданина:</span> {{this.user.email}}</h4>
+        <!----    <h4><span style="color:rgb(73, 71, 71); ; font-size: 18px;">Иманена на гражданина:</span> {{this.user.names}}</h4> -->
+     <h4><span style="color:rgb(73, 71, 71); font-size: 18px;">E-mail на гражданина:</span> {{this.user.email}}</h4>
     
     <ng-container *ngIf="this.loggedUser.role == 'superadmin'">
        
