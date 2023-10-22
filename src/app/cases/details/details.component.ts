@@ -74,8 +74,15 @@ this.case.status='Работи се'
               if(this.case.status == 'Done'){
                 this.case.status='Завършено'
                       }
-            }
-           
+            
+            if(this.case.status == 'Not Approved'){
+              this.case.status='Неодобрен'
+                    }
+                    if(this.case.status == 'Approved'){
+                      this.case.status='Одобрен'
+                            }
+          }
+          
           
           }
           console.log(this.case);

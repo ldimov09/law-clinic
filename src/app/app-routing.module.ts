@@ -10,6 +10,8 @@ import { DetailsComponent } from './cases/details/details.component';
 import { MyCasesComponent } from './my-cases/my-cases.component';
 import { AdminLawComponent } from './acts/admin-law/admin-law.component';
 import { PartnersComponent } from './about-us/partners/partners.component';
+import { HistoryComponent } from './about-us/history/history.component';
+import { TeachersComponent } from './about-us/teachers/teachers.component';
 
 const routes: Routes = [
 	{
@@ -47,6 +49,14 @@ const routes: Routes = [
 	{
 		path:'partners',
 		component: PartnersComponent
+	},
+	{
+		path:'history',
+		component: HistoryComponent
+	},
+	{
+		path:'teachers',
+		component: TeachersComponent
 	}
 ];
 

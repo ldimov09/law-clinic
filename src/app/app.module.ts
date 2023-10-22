@@ -41,6 +41,8 @@ import { ChartCasesSpecComponent } from './admin/chart-cases-spec/chart-cases-sp
 import { ChartUsersComponent } from './admin/chart-users/chart-users.component';
 import { AdminLawComponent } from './acts/admin-law/admin-law.component';
 import { PartnersComponent } from './about-us/partners/partners.component';
+import { HistoryComponent } from './about-us/history/history.component';
+import { TeachersComponent } from './about-us/teachers/teachers.component';
 
 
 @NgModule({
@@ -64,6 +66,8 @@ import { PartnersComponent } from './about-us/partners/partners.component';
     ChartUsersComponent,
     AdminLawComponent,
     PartnersComponent,
+    HistoryComponent,
+    TeachersComponent,
   ],
   imports: [
     BrowserModule,
