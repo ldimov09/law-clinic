@@ -12,6 +12,12 @@
 
 .main-content > div{
     padding: 30px;
+    overflow: auto;
+    height: calc(100vh - 124px);
+}
+
+.main-content{
+    flex-grow: 1;
 }
 
 .right{

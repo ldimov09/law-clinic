@@ -3,10 +3,12 @@ span {
   padding-left: 10px;
   padding-right: 25px;
 }
+
 a {
   text-decoration: none;
   display: flex;
 }
+
 i {
   color: rgb(30, 48, 80);
   font-size: 20px;
@@ -16,23 +18,27 @@ i {
 div {
   width: 650px;
   margin-top: 50px;
- 
+
   display: flex;
   align-items: center;
   padding-bottom: 2px;
   border-bottom: 2px solid black;
   justify-content: space-between;
 }
+
 h1 {
   text-align: center;
   padding-top: 30px;
 }
-article{
-    display: inherit;
-    align-items: center;
+
+article {
+  display: inherit;
+  align-items: center;
 }
+
 section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
 }
