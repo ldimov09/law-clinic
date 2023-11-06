@@ -10,7 +10,7 @@ export class CaseService {
 
   //url = 'http://localhost/law_clinic/api/' //When developing and testing
   url = 'https://www.digitalplant.eu/law_clinic/api/' //When uploading on digitalplant
-  //url = 'https://www.pk.uni-ruse.bg/law_clinic/api/' ???? // PROD
+  //url = 'https://pk.uni-ruse.bg/backend/law_clinic/api/' // PROD
 
 
   createCase(payload: FormData) {
@@ -26,25 +26,25 @@ export class CaseService {
 
   changeStatus(id: number, status: string, specialty?: string | number) {
     const randomApiId = Math.random();
-    const result = this.http.post(this.url + "cases/changeStatus.php?apiId=" + randomApiId, {id, status, specialty});
+    const result = this.http.post(this.url + "cases/changeStatus.php?apiId=" + randomApiId, { id, status, specialty });
     return result;
   }
 
-  assignUsersToCase(caseId: number, userIds: string){
+  assignUsersToCase(caseId: number, userIds: string) {
     const randomApiId = Math.random();
-    const result = this.http.post(this.url + "cases/assignUsers.php?apiId=" + randomApiId, {caseId, userIds});
+    const result = this.http.post(this.url + "cases/assignUsers.php?apiId=" + randomApiId, { caseId, userIds });
     return result;
   }
 
-  getOneCase(id: string){
+  getOneCase(id: string) {
     const randomApiId = Math.random();
     const result = this.http.get<any>(this.url + 'cases/getone.php?id=' + id + '&apiId=' + randomApiId);
     return result;
   }
 
-  getCasesAssignedToUser(userId: string){
+  getCasesAssignedToUser(userId: string) {
     const randomApiId = Math.random();
-    const result = this.http.get<any>(this.url + 'cases/getcasesuser.php?id=' + userId + '&apiId=' + randomApiId);
+    const result = this.http.get(this.url + 'cases/getcasesuser.php?id=' + userId + '&apiId=' + randomApiId, { responseType: 'text' });
     return result;
   }
 

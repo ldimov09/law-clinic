@@ -1,0 +1,17 @@
+<a *ngIf="!forDetPage" mat-icon-button color="primary" matTooltipPosition="above" matTooltip="Повече Информация"
+    aria-label="Info" href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
+<ng-container *ngIf="this.case.status == 'Not Approved' && role =='superadmin'">
+    <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Разпредели" aria-label="Something"
+        (click)="openSpecilatyDialog(case.id)"><mat-icon>sync_alt</mat-icon></button>
+    <button mat-icon-button color="warn" matTooltipPosition="above" matTooltip="Отхвърли" aria-label="Reject"
+        (click)="changeCaseStatus(case.id, 'Rejected')"><mat-icon>block</mat-icon></button>
+</ng-container>
+<ng-container
+    *ngIf="role != 'user' && ((case.status == 'Approved' && case.specialty == 'FI' && (this.authService.user.specilaty == 'FI' || role == 'superadmin')) || (case.status == 'Approved' && case.specialty == 'A' && (this.authService.user.specilaty == 'A' || role == 'superadmin')))">
+    <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Разпредели по студенти"
+        aria-label="people" (click)="openStudentDialog(case)"><mat-icon>people</mat-icon></button>
+</ng-container>
+<ng-container *ngIf="role != 'user' && case.status == 'Working'">
+    <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Приключи работа"
+        aria-label="Finish" (click)="changeCaseStatus(case.id, 'Done')"><mat-icon>check</mat-icon></button>
+</ng-container>

@@ -20,47 +20,25 @@
             <div *ngIf="opened == 'home'">
                 <h1>Здравейте, {{this.authService.user.names}}!</h1>
                 <p>Роля: {{this.authService.user.role == 'admin'? "Администратор" : "Суперадминистратор"}}</p>
-
                 <!-- Dashboard -->
                 <article class="dashboard-container">
-                    
                     <div>
                         <app-chart-cases
                             [data]='[(cases! | filterCases: "Not Approved").length, (cases! | filterCases: "Approved").length, (cases! | filterCases: "Working").length, (cases! | filterCases: "Done").length, (cases! | filterCases: "Rejected").length]'></app-chart-cases>
                     </div>
-
-
                     <div>
                         <app-chart-cases-spec
                             [data]='[(cases! | filterCases: "Not Approved").length, (cases! | filterCases: "": "A").length, (cases! | filterCases: "": "FI").length]'></app-chart-cases-spec>
                     </div>
-                    
                     <div>
                         <app-chart-users></app-chart-users>
                     </div>
                 </article>
-
             </div>
 
-            <!--
-                <div class="dashboard-first-row">
-                        <div class="length-container">
-                            <div class="y7tgvfuykguvhjkg"><span class="small-text">Общо Казуси</span></div>
-                            <div><span>{{cases.length}}</span></div>
-                        </div>
-                        <div class="length-container">
-                            <div class="y7tgvfuykguvhjkg"><span class="small-text">Общо Студенти</span></div>
-                            <div><span>{{users.length}}</span></div>
-                        </div>
-                    </div>
-            -->
-
             <!-- When opened side bar "Cases"-->
-
             <div *ngIf="opened == 'cases'">
-
                 <h2> Всички Казуси</h2>
-
                 <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
                     aria-label="refresh" (click)="updateCases(false)"><mat-icon>refresh</mat-icon></button>
                 <!-- updateCases(false) - Updates only the cases without the users (check the .ts file for more info)-->
@@ -73,17 +51,8 @@
                                 <!-- Pipe: <status>: <specialty?>  -->
                                 {{case.title}}
                                 <div class="right">
-                                    <a mat-icon-button color="primary" matTooltipPosition="above"
-                                        matTooltip="Повече Информация" aria-label="Info"
-                                        href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
-                                    <button mat-icon-button color="secondary" matTooltipPosition="above"
-                                        matTooltip="Разпредели" aria-label="Something"
-                                        (click)="openSpecilatyDialog(case.id)"><mat-icon>sync_alt</mat-icon></button>
-                                    <button mat-icon-button color="warn" matTooltipPosition="above"
-                                        matTooltip="Отхвърли" aria-label="Reject"
-                                        (click)="changeCaseStatus(case.id, 'Rejected')"><mat-icon>block</mat-icon></button>
-                                    <!-- Specialty Dialog - Dialog to choose A or FI specilaty -->
-                                    <!-- Change Status - Sends request to change the status of the case -->
+                                    <app-case-actions [(cases)]="cases" [case]="case"
+                                        [users]="users"></app-case-actions>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -94,13 +63,8 @@
                             <mat-list-item *ngFor="let case of cases! | filterCases: 'Approved': 'FI'">
                                 {{case.title}}
                                 <div class="right">
-                                    <a mat-icon-button color="primary" matTooltipPosition="above"
-                                        matTooltip="Повече Информация" aria-label="Info"
-                                        href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
-                                    <button mat-icon-button color="secondary" matTooltipPosition="above"
-                                        matTooltip="Разпредели по студенти" aria-label="people"
-                                        (click)="openStudentDialog(case)"><mat-icon>people</mat-icon></button>
-                                    <!-- Student Dialog - Dialog to choose students to work on the case -->
+                                    <app-case-actions [(cases)]="cases" [case]="case"
+                                        [users]="users"></app-case-actions>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -111,12 +75,8 @@
                             <mat-list-item *ngFor="let case of cases! | filterCases: 'Approved': 'A'">
                                 {{case.title}}
                                 <div class="right">
-                                    <a mat-icon-button color="primary" matTooltipPosition="above"
-                                        matTooltip="Повече Информация" aria-label="Info"
-                                        href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
-                                    <button mat-icon-button color="secondary" matTooltipPosition="above"
-                                        matTooltip="Разпредели по студенти" aria-label="people"
-                                        (click)="openStudentDialog(case)"><mat-icon>people</mat-icon></button>
+                                    <app-case-actions [(cases)]="cases" [case]="case"
+                                        [users]="users"></app-case-actions>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -126,12 +86,8 @@
                             <mat-list-item *ngFor="let case of cases! | filterCases: 'Working'">
                                 {{case.title}}
                                 <div class="right">
-                                    <a mat-icon-button color="primary" matTooltipPosition="above"
-                                        matTooltip="Повече Информация" aria-label="Info"
-                                        href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
-                                    <button mat-icon-button color="secondary" matTooltipPosition="above"
-                                        matTooltip="Приключи работа" aria-label="Finish"
-                                        (click)="changeCaseStatus(case.id, 'Done')"><mat-icon>check</mat-icon></button>
+                                    <app-case-actions [(cases)]="cases" [case]="case"
+                                        [users]="users"></app-case-actions>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -141,9 +97,8 @@
                             <mat-list-item *ngFor="let case of cases! | filterCases: 'Done'">
                                 {{case.title}}
                                 <div class="right">
-                                    <a mat-icon-button color="primary" matTooltipPosition="above"
-                                        matTooltip="Повече Информация" aria-label="Info"
-                                        href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
+                                    <app-case-actions [(cases)]="cases" [case]="case"
+                                        [users]="users"></app-case-actions>
                                 </div>
                             </mat-list-item>
                         </mat-list>
@@ -153,9 +108,8 @@
                             <mat-list-item *ngFor="let case of cases! | filterCases: 'Rejected'">
                                 {{case.title}}
                                 <div class="right">
-                                    <a mat-icon-button color="primary" matTooltipPosition="above"
-                                        matTooltip="Повече Информация" aria-label="Info"
-                                        href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
+                                    <app-case-actions [(cases)]="cases" [case]="case"
+                                        [users]="users"></app-case-actions>
                                 </div>
                             </mat-list-item>
                         </mat-list>

@@ -43,7 +43,7 @@ import { AdminLawComponent } from './acts/admin-law/admin-law.component';
 import { PartnersComponent } from './about-us/partners/partners.component';
 import { HistoryComponent } from './about-us/history/history.component';
 import { TeachersComponent } from './about-us/teachers/teachers.component';
-
+import { CaseActionsComponent } from './admin/case-actions/case-actions.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +68,7 @@ import { TeachersComponent } from './about-us/teachers/teachers.component';
     PartnersComponent,
     HistoryComponent,
     TeachersComponent,
+    CaseActionsComponent,
   ],
   imports: [
     BrowserModule,

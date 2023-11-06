@@ -45,7 +45,7 @@ export class SubmitCaseFormComponent {
 		formData.append('email', this.form.value.email!);
 		formData.append('names', this.form.value.names!);
 		if (this.selectedFiles != null) {
-			for(const file of this.selectedFiles) {
+			for (const file of this.selectedFiles) {
 				formData.append('file[]', file);
 			}
 		}
@@ -55,20 +55,19 @@ export class SubmitCaseFormComponent {
 
 		this.caseService.createCase(formData).subscribe({
 			next: (response: any) => {
-				if(response.success) {
+				if (response.success) {
 					this.router.navigate(['/']);
-				}else{
-                    this.openSnackBar(this.errorService.translateError(response.error), 'OK')
+				} else {
+					this.openSnackBar(this.errorService.translateError(response.error), 'OK')
 				}
 			},
 		});
-		
-			
-			let names = form.value.names
-console.log(names);
 
-	
-	
+
+		let names = form.value.names
+
+
+
 		let about = form.value.title
 		let email = form.value.email
 		let description = form.value.description
@@ -80,13 +79,13 @@ console.log(names);
 
 		}
 		let serviceId = "service_7bv2bic"
-		let templateId ="template_22a7s5e"
-		
-		emailjs.send(serviceId, templateId,params,"oSM0BPuigetShF4Z3").then(res=>{
-			
+		let templateId = "template_22a7s5e"
+
+		emailjs.send(serviceId, templateId, params, "oSM0BPuigetShF4Z3").then(res => {
+
 		})
-		
-		
+
+
 	}
 
 	onFileSelected(event: Event): void {

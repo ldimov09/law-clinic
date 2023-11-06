@@ -12,7 +12,7 @@ export class AuthService {
 
    // url = 'http://localhost/law_clinic/api/' //When developing and testing
     url = 'https://www.digitalplant.eu/law_clinic/api/' //When uploading on digitalplant
-    //url = 'https://www.pk.uni-ruse.bg/law_clinic/api/' // PROD
+    //url = 'https://www.pk.uni-ruse.bg/backend/law_clinic/api/' // PROD
 
     get user() { //Getter for easy acces to the user (the decoded token)
         let token = localStorage.getItem('token');

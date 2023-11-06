@@ -23,50 +23,33 @@
     Good Luck! :)
 -->
 <ng-container *ngIf="this.case">
-    <div class="cont">
+    <div class="content">
+        <div class="left">
 
+            <a mat-raised-button color="primary" *ngIf="this.loggedUser.role!='user'" href="/admin">
+                <mat-icon>arrow_left</mat-icon> Админ Панел
+            </a>
+            <a mat-raised-button color="primary" *ngIf="this.loggedUser.role=='user'" href="/my-cases">
+                <mat-icon>arrow_left</mat-icon> Мойте Казуси
+            </a>
+            <mat-list>
+                <mat-list-item *ngFor="let filename of this.case!?.filenames!">
+                    <i class="material-icons">file_present</i>
+                    <a download href="http://localhost/law_clinic/upload/{{filename}}">{{filename}}</a>
+                </mat-list-item>
+            </mat-list>
+            <p *ngIf="!this.case!?.filenames?.length" class="secondary-text">Няма прикачени файлове.</p>
+        </div>
 
-    <div class="left">
+        <div class="right">
 
-        <ng-container *ngIf="this.loggedUser.role!='user'">
-           
-            <a href="/admin"class="m-5 btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Админ Панел</a>
-        </ng-container>
-        <ng-container *ngIf="this.loggedUser.role=='user'">
-            <a href="#"class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Моите Казуси</a>
-        </ng-container>
-        <mat-list>
-            <mat-list-item *ngFor="let filename of this.case!?.filenames!"> 
-                <i class="material-icons">file_present</i>
-                <a download href="http://localhost/law_clinic/upload/{{filename}}">{{filename}}</a>
-            </mat-list-item>
-        </mat-list>
+            <h1> {{this.case!.title!}} </h1>
+            <h3>Статус: <b>{{this.displayStatus}}</b></h3>
+            <p>{{this.case!.description!}}</p>
+            <!--<h4><span style="color:rgb(73, 71, 71); font-size: 18px;">Иманена на гражданина:</span> {{this.user.names}}</h4>-->
+            <!--<h4><span style="color:rgb(73, 71, 71); font-size: 18px;">E-mail на гражданина:</span> {{this.user.email}}</h4>-->
+
+            <app-case-actions [case]="case" [forDetPage]="true" [users]="users" [id]="id"></app-case-actions>
+        </div>
     </div>
-    <div class="right">
-
-        <h1> {{this.case!.title!}} </h1>
-        <h3>Статус: <b>{{this.case.status}}</b></h3>
-        <p>{{this.case!.description!}}</p>
-        <!----    <h4><span style="color:rgb(73, 71, 71); ; font-size: 18px;">Иманена на гражданина:</span> {{this.user.names}}</h4> -->
-     <!--<h4><span style="color:rgb(73, 71, 71); font-size: 18px;">E-mail на гражданина:</span> {{this.user.email}}</h4>-->
-    
-    <ng-container *ngIf="this.loggedUser.role == 'superadmin'">
-       
-          
-                <div class="r">
-                    
-                    <button mat-icon-button color="secondary" matTooltipPosition="above"
-                        matTooltip="Разпредели"
-                        aria-label="Something" (click)="openSpecilatyDialog(case.id)"><mat-icon>sync_alt</mat-icon></button>
-                    <button mat-icon-button color="warn" matTooltipPosition="above"
-                        matTooltip="Отхвърли" aria-label="Reject"
-                        (click)="changeCaseStatus(case.id, 'Rejected')"><mat-icon>block</mat-icon></button>
-                        <!-- Specialty Dialog - Dialog to choose A or FI specilaty -->
-                        <!-- Change Status - Sends request to change the status of the case -->
-                </div>
-           
-       
-    </ng-container>
-</div>
-</div>
 </ng-container>
