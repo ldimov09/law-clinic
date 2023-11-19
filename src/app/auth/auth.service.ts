@@ -10,9 +10,9 @@ export class AuthService {
 
     constructor(private http: HttpClient) { }
 
-   // url = 'http://localhost/law_clinic/api/' //When developing and testing
-    url = 'https://www.digitalplant.eu/law_clinic/api/' //When uploading on digitalplant
-    //url = 'https://www.pk.uni-ruse.bg/backend/law_clinic/api/' // PROD
+    // url = 'http://localhost/law_clinic/api/' //When developing and testing
+    //url = 'https://www.digitalplant.eu/law_clinic/api/' //When uploading on digitalplant
+    url = 'https://pk.uni-ruse.bg/backend/law_clinic/api/' // PROD
 
     get user() { //Getter for easy acces to the user (the decoded token)
         let token = localStorage.getItem('token');

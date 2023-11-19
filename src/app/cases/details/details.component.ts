@@ -17,7 +17,7 @@ export class DetailsComponent implements OnInit {
 	loggedUser!: IUser;
 	id: number = Number(this.activatedRoute.snapshot.params?.['id']);
 	users!: IUser[]
-	guest!: IUser;
+	guest!: { names: string, email: string };
 	case!: ICase;
 	displayStatus!: string;
 
@@ -46,6 +46,7 @@ export class DetailsComponent implements OnInit {
 			next: (response: any) => {
 				if (response.success) {
 					this.case = response.result;
+					this.guest = { names: response.result.names, email: response.result.email }
 					if (this.case.status == 'Working') {
 						this.displayStatus = 'Работи се'
 					}

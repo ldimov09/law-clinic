@@ -8,7 +8,6 @@ export class FiterUsersPipe implements PipeTransform {
 
   transform(users?: IUser[], role?: string, approved?: string): IUser[] {
     const result = users!?.filter(u => u.role === role && (!approved || u.approved == Number(approved)));
-    console.log(result, role, approved);
     return result;
   }
 

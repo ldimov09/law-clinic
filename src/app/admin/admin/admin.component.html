@@ -206,17 +206,8 @@
                                 <!-- Pipe: <status>: <specialty?>  -->
                                 {{case.title}}
                                 <div class="right">
-                                    <a mat-icon-button color="primary" matTooltipPosition="above"
-                                        matTooltip="Повече Информация" aria-label="Info"
-                                        href="/details/{{case.id}}"><mat-icon>info</mat-icon></a>
-                                    <button mat-icon-button color="secondary" matTooltipPosition="above"
-                                        matTooltip="Разпредели" aria-label="Something"
-                                        (click)="openSpecilatyDialog(case.id)"><mat-icon>sync_alt</mat-icon></button>
-                                    <button mat-icon-button color="warn" matTooltipPosition="above"
-                                        matTooltip="Отхвърли" aria-label="Reject"
-                                        (click)="changeCaseStatus(case.id, 'Rejected')"><mat-icon>block</mat-icon></button>
-                                    <!-- Specialty Dialog - Dialog to choose A or FI specilaty -->
-                                    <!-- Change Status - Sends request to change the status of the case -->
+                                    <app-case-actions [case]="case" [(cases)]="cases"
+                                        [users]="users"></app-case-actions>
                                 </div>
                             </mat-list-item>
                         </mat-list>

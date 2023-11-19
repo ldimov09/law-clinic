@@ -28,11 +28,13 @@ export class MyCasesComponent {
 	getAllCasesAssignedToThisUser(){
 		this.caseService.getCasesAssignedToUser(this.authService.user.id).subscribe({
 			next:(response: any) => {
+				response = JSON.parse(response);
 				if(response.success){
 					this.cases = response.result;
 				}
 			},
 			error:(error) => {
+				console.log(error); // TODO: Handle errors properly
 			}
  		})
 	}

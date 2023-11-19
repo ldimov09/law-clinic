@@ -9,8 +9,8 @@ export class CaseService {
   constructor(private http: HttpClient) { }
 
   //url = 'http://localhost/law_clinic/api/' //When developing and testing
-  url = 'https://www.digitalplant.eu/law_clinic/api/' //When uploading on digitalplant
-  //url = 'https://pk.uni-ruse.bg/backend/law_clinic/api/' // PROD
+  //url = 'https://www.digitalplant.eu/law_clinic/api/' //When uploading on digitalplant
+  url = 'https://pk.uni-ruse.bg/backend/law_clinic/api/' // PROD
 
 
   createCase(payload: FormData) {

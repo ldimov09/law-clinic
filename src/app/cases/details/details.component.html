@@ -35,7 +35,7 @@
             <mat-list>
                 <mat-list-item *ngFor="let filename of this.case!?.filenames!">
                     <i class="material-icons">file_present</i>
-                    <a download href="http://localhost/law_clinic/upload/{{filename}}">{{filename}}</a>
+                    <a download href="https://pk.uni-ruse.bg/backend/law_clinic/upload/{{filename}}">{{filename}}</a>
                 </mat-list-item>
             </mat-list>
             <p *ngIf="!this.case!?.filenames?.length" class="secondary-text">Няма прикачени файлове.</p>
@@ -46,8 +46,10 @@
             <h1> {{this.case!.title!}} </h1>
             <h3>Статус: <b>{{this.displayStatus}}</b></h3>
             <p>{{this.case!.description!}}</p>
-            <!--<h4><span style="color:rgb(73, 71, 71); font-size: 18px;">Иманена на гражданина:</span> {{this.user.names}}</h4>-->
-            <!--<h4><span style="color:rgb(73, 71, 71); font-size: 18px;">E-mail на гражданина:</span> {{this.user.email}}</h4>-->
+            <h4><span style="color:rgb(73, 71, 71); font-size: 18px;">Имена на гражданина:</span> {{this.guest.names}}
+            </h4>
+            <h4><span style="color:rgb(73, 71, 71); font-size: 18px;">E-mail на гражданина:</span> {{this.guest.email}}
+            </h4>
 
             <app-case-actions [case]="case" [forDetPage]="true" [users]="users" [id]="id"></app-case-actions>
         </div>

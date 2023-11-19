@@ -30,8 +30,8 @@ export class AdminComponent {
 
 	constructor(authService: AuthService, private caseService: CaseService, private snackBar: MatSnackBar, public dialog: MatDialog) {
 		this.authService = authService;
-		this.role = this.authService.user.role;
-		this.spec = this.authService.user.specialty;
+		this.role = this.authService.user?.role;
+		this.spec = this.authService.user?.specialty;
 	}
 
 	//====BASE===
@@ -52,10 +52,11 @@ export class AdminComponent {
 		//...(as is needed in ngOnInit) or doesn't (as is needed it the update button in the admin panel).
 		this.caseService.getAllCases().subscribe({
 			next: (response: any) => {
+				console.log(response);
 				if (response.success) {
 					this.cases = response.result;
 					if (cont) {
-						//If const is true, update the users list
+						//If cont is true, update the users list
 						this.loadUsersAndOccupiedUsers();
 					}
 				} else {

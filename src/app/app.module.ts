@@ -55,7 +55,7 @@ import { CaseActionsComponent } from './admin/case-actions/case-actions.componen
     SubmitCaseFormComponent,
     AdminComponent,
     FilterCasesPipe,
-    FilterCasesPipe,
+    FiterUsersPipe,
     DetailsComponent,
     FiterUsersPipe,
     DialogStudentsComponent,
