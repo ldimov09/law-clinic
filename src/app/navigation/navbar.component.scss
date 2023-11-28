@@ -21,3 +21,16 @@
 .nav-btn{
     margin-left: 10px;;
 }
+.menu-spacer {
+    flex: 1 1 auto;
+  }
+@media(width<=1274px){
+    mat-toolbar-row{
+        flex-direction: column !important;
+        
+    } 
+    mat-toolbar{
+        width: 800px;
+        display: contents;
+    }
+}
