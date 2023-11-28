@@ -16,7 +16,7 @@
 }
 
 a{
-  text-decoration: none;;
+  text-decoration: none;
 }
 
 .guest-users-container .header-section {
@@ -46,7 +46,7 @@ a{
 
 .guest-users-container .header-section-headings h1 {
   font-family: "Lato", "Arial", "Helvetica", sans-serif;
-  padding-right: 150px;
+ 
   color: #fff;
   text-align: center;
 }
@@ -55,6 +55,9 @@ a{
   margin: 20px 0px 136px 0px;
 }
 
+.header-section-buttons{
+  margin-left: 59px!important;
+}
 .guest-users-container .header-section-body .primary-button {
   margin-bottom: 20px;
   width: 322px;
@@ -72,7 +75,9 @@ li i {
 .container {
 padding-top: 18px;
 }
-
+nav-btn{
+  color:white
+}
 @media (min-width: 992px) {
   .guest-users-container .header-section-headings h1 {
     font-size: 36px;
@@ -86,6 +91,16 @@ padding-top: 18px;
 @media(width<=1274px){
   .guest-users-container{ 
  padding-top: 220px;
+  }
+  .header-section-program-info-items{
+    display: flex;
+    justify-content: center;
+  }
+   .header-section-buttons{
+    display: flex;
+    justify-content: center;
+    margin-left: 0px!important;
+    margin-right: 30px!important;
   }
  }
 

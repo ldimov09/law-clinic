@@ -48,3 +48,35 @@ section {
  padding-top: 220px;
   }
  }
+ @media(width<=700px){
+  span{ 
+ font-size: 12px;
+
+  }
+  img{
+    width: 20px;
+    height: 25px;
+  }
+  i{
+    font-size: 17px;
+  }
+  div{
+    width: 375px;
+  }
+ }
+ @media(width<=415px){
+  span{ 
+ font-size: 10px;
+
+  }
+  img{
+    width: 18px;
+    height: 22px;
+  }
+  i{
+    font-size: 15px;
+  }
+  div{
+    width: 340px;
+  }
+ }
