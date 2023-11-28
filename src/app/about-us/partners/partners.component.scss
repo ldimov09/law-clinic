@@ -26,3 +26,8 @@ span {
     display: flex;
     justify-content: space-around;
 }
+@media(width<=1274px){
+    section{ 
+   padding-top: 220px;
+    }
+   }

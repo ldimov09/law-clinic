@@ -42,3 +42,9 @@ section {
   align-items: center;
   padding-bottom: 20px;
 }
+
+@media(width<=1274px){
+  section{ 
+ padding-top: 220px;
+  }
+ }
