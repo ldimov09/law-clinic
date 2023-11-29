@@ -24,13 +24,21 @@
 .menu-spacer {
     flex: 1 1 auto;
   }
+.hamburger-nav{
+    display: none;
+}
 @media(width<=1274px){
-    mat-toolbar-row{
-        flex-direction: column !important;
-        
-    } 
-    mat-toolbar{
-        width: 800px;
-        display: contents;
+    
+    .regular-nav{
+        display: none;
     }
+    .hamburger-nav{
+        display: flex;
+    }
+}
+@media(width<=534px){
+    .toolbar-item-spacer span{
+        display: none;
+    }
+    
 }

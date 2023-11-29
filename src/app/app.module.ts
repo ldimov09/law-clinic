@@ -37,6 +37,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MyCasesComponent } from './my-cases/my-cases.component';
 import { ChartCasesComponent } from './admin/chart-cases/chart-cases.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { ChartCasesSpecComponent } from './admin/chart-cases-spec/chart-cases-spec.component';
 import { ChartUsersComponent } from './admin/chart-users/chart-users.component';
 import { AdminLawComponent } from './acts/admin-law/admin-law.component';
@@ -96,6 +97,7 @@ import { CaseActionsComponent } from './admin/case-actions/case-actions.componen
     MatSnackBarModule,
     MatButtonToggleModule,
     MatBadgeModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
