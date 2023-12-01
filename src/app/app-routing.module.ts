@@ -12,6 +12,7 @@ import { AdminLawComponent } from './acts/admin-law/admin-law.component';
 import { PartnersComponent } from './about-us/partners/partners.component';
 import { HistoryComponent } from './about-us/history/history.component';
 import { TeachersComponent } from './about-us/teachers/teachers.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 const routes: Routes = [
 	{
@@ -57,6 +58,10 @@ const routes: Routes = [
 	{
 		path:'teachers',
 		component: TeachersComponent
+	},
+	{
+		path:'*',
+		component: NotFoundPageComponent
 	}
 ];
 

@@ -42,3 +42,9 @@ p.info{
     margin-top: 0px;
 }
 
+@media (max-width: 767px) {
+    form {
+        width: 80%;
+        margin: 0 auto;
+    }
+}

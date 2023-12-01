@@ -45,6 +45,7 @@ import { PartnersComponent } from './about-us/partners/partners.component';
 import { HistoryComponent } from './about-us/history/history.component';
 import { TeachersComponent } from './about-us/teachers/teachers.component';
 import { CaseActionsComponent } from './admin/case-actions/case-actions.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { CaseActionsComponent } from './admin/case-actions/case-actions.componen
     HistoryComponent,
     TeachersComponent,
     CaseActionsComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     BrowserModule,
