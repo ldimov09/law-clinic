@@ -65,9 +65,6 @@ export class SubmitCaseFormComponent {
 
 
 		let names = form.value.names
-
-
-
 		let about = form.value.title
 		let email = form.value.email
 		let description = form.value.description
@@ -76,16 +73,11 @@ export class SubmitCaseFormComponent {
 			about,
 			email,
 			description,
-
 		}
 		let serviceId = "service_7bv2bic"
 		let templateId = "template_22a7s5e"
 
-		emailjs.send(serviceId, templateId, params, "oSM0BPuigetShF4Z3").then(res => {
-
-		})
-
-
+		emailjs.send(serviceId, templateId, params, "oSM0BPuigetShF4Z3").then(res => { console.log(res); })
 	}
 
 	onFileSelected(event: Event): void {
