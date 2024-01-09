@@ -131,7 +131,7 @@
             (click)="this.authService.logout()">Изход</a>
           <!--Links only for students(users)-->
           <a class="nav-btn" href='/my-cases' mat-raised-button color="primary"
-            *ngIf="this.authService.isLoggedIn() && this.authService.user?.role == 'user'">Мойте Казуси</a>
+            *ngIf="this.authService.isLoggedIn() && this.authService.user?.role == 'user'">Моите Казуси</a>
           <!-- Links only for admins and superadmins -->
           <a class="nav-btn" href='/admin' mat-raised-button color="primary"
             *ngIf="this.authService.isLoggedIn() && (this.authService.user?.role == 'admin' || this.authService.user?.role == 'superadmin')">Админ
