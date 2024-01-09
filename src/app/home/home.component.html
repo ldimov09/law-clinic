@@ -29,7 +29,9 @@
                     <a class="nav-btn" href='/submit-case' mat-raised-button color="primary" *ngIf="!this.authService.isLoggedIn()">Запитване за
                         консултация</a>
                         <a class="nav-btn" href='/admin' mat-raised-button color="primary" *ngIf="this.authService.isLoggedIn() && (this.authService.user?.role == 'admin' || this.authService.user?.role == 'superadmin')">Админ панел</a>
-
+                        <a class="nav-btn" href='/my-cases' mat-raised-button color="primary" *ngIf="this.authService.isLoggedIn() && this.authService.user?.role == 'user'">Моите казуси</a>
+                        
+                        
                 </div>
                 <div class="header-section-image-container">
                     <div class="header-section-image-container-wrapper" style="display: none;">
