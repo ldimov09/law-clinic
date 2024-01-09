@@ -17,7 +17,7 @@
 
             </div>
             <div *ngIf="opened == 'working'">
-                <h2>Казуси, по които рабоитите</h2>
+                <h2>Казуси, по които работите</h2>
                 <button mat-icon-button color="secondary" matTooltipPosition="above" matTooltip="Обнови"
                     aria-label="refresh" (click)="getAllCasesAssignedToThisUser()"><mat-icon>refresh</mat-icon></button>
                 <mat-list class="case-list" *ngIf="(cases | filterCases: 'Working')?.length != 0">
